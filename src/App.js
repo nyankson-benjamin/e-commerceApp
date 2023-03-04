@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import ProductList from "./Products/ProductList";
+import { Routes, Route } from "react-router-dom";
+import Login from "./Pages/Login";
+import Products from "./Pages/Products";
+import Blogs from "./Pages/Blogs";
+import About from "./Pages/About";
+import Laptops from "./ProductCategories/Laptops";
+import Phones from "./ProductCategories/Phones";
+import ProductCard from "./Products/ProductCard";
+import ProductPage from "./Products/ProductPage";
+import Fragrances from "./ProductCategories/Fragrances";
+import Groceries from "./ProductCategories/Groceries";
+import SkinCare from "./ProductCategories/SkinCare";
+import HomeDeco from "./ProductCategories/HomeDeco";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route exact path="/" element={<Products />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/blog" element={<Blogs />} />
+        <Route path="/about" element={<About />} />
+
+        <Route path="/categories/Laptops" element={<Laptops />} />
+        <Route path="/categories/Phones" element={<Phones />} />
+        <Route path="/categories/Fragrances" element={<Fragrances />} />
+        <Route path="/categories/Groceries" element={<Groceries />} />
+        <Route path="/categories/skin-care" element={<SkinCare />} />
+        <Route path="/categories/Home-Decoration" element={<HomeDeco />} />
+        <Route path="/productPage/:title" element={<ProductPage />} />
+      </Routes>
     </div>
   );
 }
