@@ -1,18 +1,19 @@
 import React from "react";
 import AppsBar from "../TopBar/AppBar";
-import useLaptops from "../Hooks/Product_Categories/useLaptops";
 import ProductCard from "../Products/ProductCard";
 import ProductSkeleton from "../components/ProductSkeleton";
-
+import useFetchProducts from "../FetchingHooks/useFetchProducts";
 import { Grid } from "@mui/material";
 import { Box } from "@mui/system";
 function Laptops() {
-  const [laptops, loading] = useLaptops();
+  const [data, isLoading] = useFetchProducts();
+  const laptop = data?.filter((laptop) => laptop.category === "laptops");
+  console.log("laptops", laptop);
   return (
     <div>
       <AppsBar ItemCategory="Laptops" />
 
-      {loading ? (
+      {isLoading ? (
         <ProductSkeleton />
       ) : (
         <Box
@@ -25,7 +26,7 @@ function Laptops() {
           }}
         >
           <Grid spacing={2} container>
-            {laptops?.map((laptop) => (
+            {laptop?.map((laptop) => (
               <Grid item key={laptop.id} xs={12} lg={3}>
                 <ProductCard product={laptop} />
               </Grid>

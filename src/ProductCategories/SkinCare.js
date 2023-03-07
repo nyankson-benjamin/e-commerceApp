@@ -4,14 +4,15 @@ import useSkinCare from "../Hooks/Product_Categories/useSkinCare";
 import ProductCard from "../Products/ProductCard";
 import { Grid, Box } from "@mui/material";
 import ProductSkeleton from "../components/ProductSkeleton";
-
+import useFetchProducts from "../FetchingHooks/useFetchProducts";
 export default function SkinCare() {
-  const [skinCare, loading] = useSkinCare();
-
+  // const [skinCare, loading] = useSkinCare();
+  const [data, isLoading] = useFetchProducts();
+  const skinCare = data?.filter((skincare) => skincare.category === "skincare");
   return (
     <div>
       <AppsBar ItemCategory="Skin Care" />
-      {loading ? (
+      {isLoading ? (
         <ProductSkeleton />
       ) : (
         <Box

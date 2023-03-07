@@ -1,16 +1,16 @@
 import React from "react";
 import AppsBar from "../TopBar/AppBar";
-import usePhones from "../Hooks/Product_Categories/usePhones";
 import ProductCard from "../Products/ProductCard";
 import { Grid, Box } from "@mui/material";
 import ProductSkeleton from "../components/ProductSkeleton";
+import useFetchProducts from "../FetchingHooks/useFetchProducts";
 export default function Phones() {
-  const [phones, loading] = usePhones();
-
+  const [data, isLoading] = useFetchProducts();
+  const phones = data?.filter((phone) => phone.category === "smartphones");
   return (
     <div>
       <AppsBar ItemCategory="Phones" />
-      {loading ? (
+      {isLoading ? (
         <ProductSkeleton />
       ) : (
         <Box

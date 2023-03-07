@@ -13,6 +13,8 @@ import Fragrances from "./ProductCategories/Fragrances";
 import Groceries from "./ProductCategories/Groceries";
 import SkinCare from "./ProductCategories/SkinCare";
 import HomeDeco from "./ProductCategories/HomeDeco";
+import BuyProduct from "./Products/BuyProduct";
+import Cart from "./components/Cart/Cart";
 function App() {
   return (
     <div className="App">
@@ -30,6 +32,8 @@ function App() {
         <Route path="/categories/skin-care" element={<SkinCare />} />
         <Route path="/categories/Home-Decoration" element={<HomeDeco />} />
         <Route path="/productPage/:title" element={<ProductPage />} />
+        <Route path="/BuyProduct/:title" element={<BuyProduct />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </div>
   );

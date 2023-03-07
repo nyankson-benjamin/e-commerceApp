@@ -1,17 +1,16 @@
 import React from "react";
 import AppsBar from "../TopBar/AppBar";
-import useHomeDeco from "../Hooks/Product_Categories/useHomeDeco";
 import ProductCard from "../Products/ProductCard";
 import { Grid, Box } from "@mui/material";
 import ProductSkeleton from "../components/ProductSkeleton";
-
+import useFetchProducts from "../FetchingHooks/useFetchProducts";
 export default function HomeDeco() {
-  const [deco, loading] = useHomeDeco();
-
+  const [data, isLoading] = useFetchProducts();
+  const HomeDeco = data?.filter((deco) => deco.category === "home-decoration");
   return (
     <div>
       <AppsBar ItemCategory="Home Decorations" />
-      {loading ? (
+      {isLoading ? (
         <ProductSkeleton />
       ) : (
         <Box
@@ -24,7 +23,7 @@ export default function HomeDeco() {
           }}
         >
           <Grid container spacing={2}>
-            {deco?.map((deco) => (
+            {HomeDeco?.map((deco) => (
               <Grid item key={deco.id} xs={12} lg={3}>
                 <ProductCard product={deco} />
               </Grid>

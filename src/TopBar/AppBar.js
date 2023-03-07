@@ -17,7 +17,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
 import useScreenWidth from "../Hooks/useScreenWidth";
 import { page, categories } from "../Constants/constants";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { navLinkStyle } from "../styles/Styles";
 
 export default function AppsBar({ ItemCategory }) {
@@ -58,18 +58,18 @@ export default function AppsBar({ ItemCategory }) {
             )}
           </Box>
           {/* {screenWidth < 498 && ItemCategory.length > 7 ? ( */}
-            <Typography
-              variant="h6"
-              component="div"
-              title={ItemCategory}
-              sx={{ flexGrow: 1 }}
-            >
-              {/* {ItemCategory.substring(0, 6) + "..."} */}
-            </Typography>
+          <Typography
+            variant="h6"
+            component="div"
+            title={ItemCategory}
+            sx={{ flexGrow: 1 }}
+          >
+            {/* {ItemCategory.substring(0, 6) + "..."} */}
+          </Typography>
           {/* ) : ( */}
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              {ItemCategory}
-            </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            {ItemCategory}
+          </Typography>
           {/* )} */}
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -117,14 +117,16 @@ export default function AppsBar({ ItemCategory }) {
                   onClose={() => setCategory(null)}
                 >
                   {categories.map((category) => (
-                    <MenuItem
-                      key={category}
-                      onClick={() => {
-                        navigate(`/categories/${category}`);
-                      }}
-                    >
-                      <Typography textAlign="center">{category}</Typography>
-                    </MenuItem>
+                    <Link to={`/categories/${category}`} key={category}>
+                      <MenuItem
+                      // key={category}
+                      // onClick={() => {
+                      //   navigate(`/categories/${category}`);
+                      // }}
+                      >
+                        <Typography textAlign="center">{category}</Typography>
+                      </MenuItem>
+                    </Link>
                   ))}
                 </Menu>
               </Box>

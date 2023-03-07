@@ -54,4 +54,5 @@ export const rightBarStyle = {
 export const footerStyle = {
   backgroundColor: "#E2F4FF",
   height: "136px",
+  margin: "auto",
 };

@@ -14,7 +14,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/swiper.min.css";
 import Footer from "../components/Footer";
-
+import ProductDetail from "./ProductDetail";
 function ProductPage() {
   const [data, isLoading] = useFetchProducts();
   const { title } = useParams();
@@ -22,23 +22,33 @@ function ProductPage() {
   const [loading, setLoading] = useState(false);
   const product = data?.find((product) => product.title === title);
   const [screenWidth] = useScreenWidth();
+  // const [image, setImage] = useState(product.thumbnail);
   const autoplay = {
     delay: 2000, // Delay between transitions (in ms)
     disableOnInteraction: false, // Enable/disable autoplay on user interaction
   };
+  // useEffect(() => {
+  //   const fetch = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const related = await DUMMy_API.get(
+  //         `/products/category/${product.category}`
+  //       );
+  //       setLoading(false);
+  //       setRelated(related?.data?.products);
+  //     } catch (error) {}
+  //   };
+  //   fetch();
+  // });
+
   useEffect(() => {
-    const fetch = async () => {
-      try {
-        setLoading(true);
-        const related = await DUMMy_API.get(
-          `/products/category/${product.category}`
-        );
-        setLoading(false);
-        setRelated(related?.data?.products);
-      } catch (error) {}
-    };
-    fetch();
-  });
+    if (product) {
+      setRelated(
+        data?.filter((relate) => relate.category === product.category)
+      );
+    }
+  }, [, data, product]);
+  // console.log(related);
   return (
     <div style={{ height: "100vh" }}>
       <AppsBar />
@@ -52,14 +62,20 @@ function ProductPage() {
             mt: "20px",
           }}
         >
-          <Box sx={{ height: "200px" }}>
-            <p>{product.title}</p>
-            <img
-              src={product.thumbnail}
-              alt=""
-              style={{ width: "200px", height: "200px" }}
-            />
+          <Box
+            sx={{
+              height: "200px",
+              display: "flex",
+              justifyContent: "center",
+              // flexDirection: "column",
+            }}
+          >
+            <ProductDetail product={product} />
           </Box>
+          <br />
+          <br />
+          <br />
+          <br />
           <br />
           <br />
           <Box>
@@ -82,24 +98,24 @@ function ProductPage() {
                   </SwiperSlide>
                 ))}
               </Swiper>
-            ) : <Swiper
-            modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-            spaceBetween={20}
-            slidesPerView={1}
-            // onSlideChange={() => console.log("slide change")}
-            // onSwiper={(swiper) => console.log(swiper)}
-            navigation
-            pagination={{ clickable: true }}
-            autoplay={autoplay}
-          >
-            {related?.map((related) => (
-              <SwiperSlide key={related.id}>
-                <RelatedProducts related={related} loading={isLoading} />
-              </SwiperSlide>
-            ))}
-          </Swiper>}
-
-            {/* <ProductSlider data={related} /> */}
+            ) : (
+              <Swiper
+                modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+                spaceBetween={20}
+                slidesPerView={1}
+                // onSlideChange={() => console.log("slide change")}
+                // onSwiper={(swiper) => console.log(swiper)}
+                navigation
+                pagination={{ clickable: true }}
+                autoplay={autoplay}
+              >
+                {related?.map((related) => (
+                  <SwiperSlide key={related.id}>
+                    <RelatedProducts related={related} loading={isLoading} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            )}
           </Box>
         </Box>
       )}

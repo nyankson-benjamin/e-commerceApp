@@ -4,13 +4,17 @@ import useFragrances from "../Hooks/Product_Categories/useFragrance";
 import ProductCard from "../Products/ProductCard";
 import { Grid, Box } from "@mui/material";
 import ProductSkeleton from "../components/ProductSkeleton";
+import useFetchProducts from "../FetchingHooks/useFetchProducts";
 export default function Fragrances() {
-  const [fragrances, loading] = useFragrances();
-
+  // const [fragrances, loading] = useFragrances();
+  const [data, isLoading] = useFetchProducts();
+  const fragrances = data?.filter(
+    (fragrance) => fragrance.category === "fragrances"
+  );
   return (
     <div>
       <AppsBar ItemCategory="Fragrances" />
-      {loading ? (
+      {isLoading ? (
         <ProductSkeleton />
       ) : (
         <Box
