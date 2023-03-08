@@ -19,7 +19,8 @@ import useScreenWidth from "../Hooks/useScreenWidth";
 import { page, categories } from "../Constants/constants";
 import { Link, useNavigate } from "react-router-dom";
 import { navLinkStyle } from "../styles/Styles";
-
+import CartLength from "../components/Cart/CartLength";
+import { Search } from "@mui/icons-material";
 export default function AppsBar({ ItemCategory }) {
   const [screenWidth] = useScreenWidth();
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -78,7 +79,8 @@ export default function AppsBar({ ItemCategory }) {
 
           {screenWidth > 498 ? (
             <Stack direction="row" spacing={3} sx={{ alignItems: "center" }}>
-              {/* <TextField sx={{ width: "300px", mr: 20 }} /> */}
+              <TextField sx={{ width: "300px", mr: 20 }} />
+              <CartLength />
               {page.map((page) => (
                 <Button
                   sx={navLinkStyle}
@@ -118,12 +120,7 @@ export default function AppsBar({ ItemCategory }) {
                 >
                   {categories.map((category) => (
                     <Link to={`/categories/${category}`} key={category}>
-                      <MenuItem
-                      // key={category}
-                      // onClick={() => {
-                      //   navigate(`/categories/${category}`);
-                      // }}
-                      >
+                      <MenuItem>
                         <Typography textAlign="center">{category}</Typography>
                       </MenuItem>
                     </Link>
@@ -136,21 +133,23 @@ export default function AppsBar({ ItemCategory }) {
               <Stack
                 direction="row"
                 spacing={3} // sx={{
-                //   display: "flex",
-                //   justifyContent: "space-between",
-                //   alignItems: "center",
-                // }}
               >
-                <Box sx={{ flexGrow: 0 }}>
+                <Box
+                  sx={{ flexGrow: 0, alignItems: "center", display: "flex" }}
+                >
+                  <IconButton color="inherit">
+                    <Search />
+                  </IconButton>
+
+                  <CartLength />
                   <Tooltip title="Open settings">
                     <Button
                       onClick={(event) => setCategory(event.currentTarget)}
-                      sx={{ p: 0 }}
+                      sx={{ p: 0, ml: 3 }}
                       color="inherit"
                       endIcon={<KeyboardArrowDownIcon />}
                     >
                       Categories
-                      {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
                     </Button>
                   </Tooltip>
                   <Menu

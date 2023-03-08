@@ -4,7 +4,8 @@ import useScreenWidth from "../Hooks/useScreenWidth";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-
+import { baseURL } from "../Constants/urls";
+import { API } from "../Services/api";
 import { useNavigate } from "react-router-dom";
 export default function AddToCart({ product }) {
   const [image, setImage] = useState(product.thumbnail);
@@ -25,7 +26,7 @@ export default function AddToCart({ product }) {
     // }
   }, [value]);
 
-  const handleAddToCart = (e) => {
+  const handleAddToCart = async (e) => {
     const cartItem = {
       item: product.title,
       img_link: image,
@@ -39,6 +40,9 @@ export default function AddToCart({ product }) {
         ).toFixed(2) * value,
     };
 
+    try {
+      const response = await API.post("Cart/", { ...cartItem });
+    } catch (error) {}
     console.log(cartItem);
   };
   return (
