@@ -21,7 +21,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { navLinkStyle } from "../styles/Styles";
 import CartLength from "../components/Cart/CartLength";
 import { Search } from "@mui/icons-material";
-export default function AppsBar({ ItemCategory }) {
+import Searchitem from "../components/Searchitem";
+export default function AppsBar({ ItemCategory, search, handleChange }) {
   const [screenWidth] = useScreenWidth();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [category, setCategory] = useState(null);
@@ -34,9 +35,6 @@ export default function AppsBar({ ItemCategory }) {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-  useEffect(() => {
-    console.log(screenWidth);
-  }, []);
 
   return (
     <Stack>
@@ -79,7 +77,11 @@ export default function AppsBar({ ItemCategory }) {
 
           {screenWidth > 498 ? (
             <Stack direction="row" spacing={3} sx={{ alignItems: "center" }}>
-              <TextField sx={{ width: "300px", mr: 20 }} />
+              {/* <TextField
+                sx={{ width: "300px", mr: 20, color: "white" }}
+                placeholder="Search"
+              /> */}
+              <Searchitem search={search} handleChange={handleChange} />
               <CartLength />
               {page.map((page) => (
                 <Button

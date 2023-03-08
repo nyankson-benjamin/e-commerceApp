@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import ProductSkeleton from "../components/ProductSkeleton";
+import Paginate from "../components/Paginate";
 
 function ProductCard({ product, isLoading }) {
   return (
@@ -17,7 +18,7 @@ function ProductCard({ product, isLoading }) {
         <ProductSkeleton />
       ) : (
         <Link to={`/productPage/${product.title}`}>
-          <Card elevation={1} className="productCard" sx={{ width: "100%" }}>
+          <Card elevation={1} className="productCard" sx={{ width: "300px" }}>
             <img
               src={product.thumbnail}
               alt=""
@@ -61,6 +62,7 @@ function ProductCard({ product, isLoading }) {
           </Card>
         </Link>
       )}
+      {/* <Paginate data={product} /> */}
     </div>
   );
 }
