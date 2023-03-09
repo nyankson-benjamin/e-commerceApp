@@ -3,7 +3,7 @@ import useCart from "../../Hooks/useCart";
 import AppsBar from "../../TopBar/AppBar";
 import CartTable from "./CartTable";
 export default function Cart() {
-  const [data, loading] = useCart();
+  const [data, loading, handleDelete] = useCart();
 
   const [filt, setFilter] = useState("");
   const [cart, setCart] = useState(data);
@@ -30,7 +30,7 @@ export default function Cart() {
   return (
     <div>
       <AppsBar search={filt} handleChange={handleChange} />
-      <CartTable cart={cart} />
+      <CartTable cart={cart} handleDelete={handleDelete} />
     </div>
   );
 }

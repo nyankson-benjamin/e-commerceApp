@@ -5,20 +5,17 @@ import {
   TableHead,
   TableRow,
   TableBody,
-  Tablecell,
   Paper,
   TableCell,
-  TextField,
-  Select,
-  MenuItem,
   Button,
+  ButtonGroup,
   IconButton,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useState, useEffect } from "react";
 
-export default function CartTable({ data, cart }) {
+export default function CartTable({ data, cart, handleDelete }) {
   const [filt, setFilter] = useState("");
   // const [cart, setCart] = useState(data);
   const navigate = useNavigate();
@@ -40,11 +37,11 @@ export default function CartTable({ data, cart }) {
   // });
   return (
     <div>
-      <TextField
+      {/* <TextField
         placeholder="search"
         value={filt}
         onChange={(e) => setFilter(e.target.value)}
-      />
+      /> */}
       <br />
       <TableContainer component={Paper}>
         <Table>
@@ -63,18 +60,23 @@ export default function CartTable({ data, cart }) {
               {cart?.map((cart) => (
                 <TableRow key={cart.id}>
                   <TableCell>{cart.id}</TableCell>
-                  <TableCell>{cart.title}</TableCell>
+                  <TableCell>{cart.item}</TableCell>
                   <TableCell>{cart.quantity}</TableCell>
                   <TableCell>{cart.unitPrice}</TableCell>
-                  <TableCell>{cart.price}</TableCell>
+                  <TableCell>{cart.totalPrice}</TableCell>
 
                   <TableCell>
-                    <Button
-                      variant="contained"
-                      onClick={() => navigate(`/cartItem/buy/${cart.title}`)}
-                    >
-                      BUY
-                    </Button>
+                    <ButtonGroup>
+                      <Button
+                        variant="contained"
+                        onClick={() => navigate(`/cartItem/buy/${cart.item}`)}
+                      >
+                        BUY
+                      </Button>
+                      <IconButton onClick={handleDelete}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </ButtonGroup>
                   </TableCell>
                 </TableRow>
               ))}
@@ -82,7 +84,7 @@ export default function CartTable({ data, cart }) {
           ) : (
             <TableBody>
               <TableRow>
-                <TableCell>0 matching results</TableCell>
+                <TableCell>No result found</TableCell>
               </TableRow>
             </TableBody>
           )}

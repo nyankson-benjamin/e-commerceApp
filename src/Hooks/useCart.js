@@ -15,5 +15,11 @@ export default function useCart() {
     };
     fetch();
   }, []);
-  return [data, loading];
+  const handleDelete = async (id) => {
+    await API.delete("/Cart/" + id);
+
+    const newCart = data?.filter((cart) => cart.id !== id);
+    setData(newCart);
+  };
+  return [data, loading, handleDelete];
 }

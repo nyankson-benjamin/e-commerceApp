@@ -1,36 +1,124 @@
 {
   "Cart": [
     {
-      "item": "Handcraft Chinese style",
-      "img_link": "https://i.dummyjson.com/data/products/29/thumbnail.webp",
-      "quantity": 8,
-      "unitPrice": 50.796,
-      "totalPrice": 406.4,
-      "id": 1
-    },
-    {
-      "item": "Handcraft Chinese style",
-      "img_link": "https://i.dummyjson.com/data/products/29/3.webp",
-      "quantity": 8,
-      "unitPrice": 50.796,
-      "totalPrice": 406.4,
-      "id": 2
-    },
-    {
-      "item": "Plant Hanger For Home",
-      "img_link": "https://i.dummyjson.com/data/products/26/thumbnail.jpg",
-      "quantity": 13,
-      "unitPrice": 33.6774,
-      "totalPrice": 437.84,
-      "id": 3
-    },
-    {
-      "item": "3D Embellishment Art Lamp",
-      "img_link": "https://i.dummyjson.com/data/products/28/thumbnail.jpg",
-      "quantity": 21,
-      "unitPrice": 16.701999999999998,
-      "totalPrice": 350.7,
+      "item": "Samsung Universe 9",
+      "img_link": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "unitPrice": 1055.9046,
+      "totalPrice": 1055.9,
       "id": 4
+    },
+    {
+      "item": "Samsung Universe 9",
+      "img_link": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "unitPrice": 1055.9046,
+      "totalPrice": 1055.9,
+      "id": 5
+    },
+    {
+      "item": "Samsung Universe 9",
+      "img_link": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "unitPrice": 1055.9046,
+      "totalPrice": 1055.9,
+      "id": 6
+    },
+    {
+      "item": "Samsung Universe 9",
+      "img_link": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "unitPrice": 1055.9046,
+      "totalPrice": 1055.9,
+      "id": 7
+    },
+    {
+      "item": "Samsung Universe 9",
+      "img_link": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "unitPrice": 1055.9046,
+      "totalPrice": 1055.9,
+      "id": 8
+    },
+    {
+      "item": "Samsung Universe 9",
+      "img_link": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "unitPrice": 1055.9046,
+      "totalPrice": 1055.9,
+      "id": 9
+    },
+    {
+      "item": "Samsung Universe 9",
+      "img_link": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "unitPrice": 1055.9046,
+      "totalPrice": 1055.9,
+      "id": 10
+    },
+    {
+      "item": "Samsung Universe 9",
+      "img_link": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "unitPrice": 1055.9046,
+      "totalPrice": 1055.9,
+      "id": 11
+    },
+    {
+      "item": "Samsung Universe 9",
+      "img_link": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "unitPrice": 1055.9046,
+      "totalPrice": 1055.9,
+      "id": 12
+    },
+    {
+      "item": "Samsung Universe 9",
+      "img_link": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "unitPrice": 1055.9046,
+      "totalPrice": 1055.9,
+      "id": 13
+    },
+    {
+      "item": "Samsung Universe 9",
+      "img_link": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "unitPrice": 1055.9046,
+      "totalPrice": 1055.9,
+      "id": 14
+    },
+    {
+      "item": "Samsung Universe 9",
+      "img_link": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "unitPrice": 1055.9046,
+      "totalPrice": 1055.9,
+      "id": 15
+    },
+    {
+      "item": "Samsung Universe 9",
+      "img_link": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "unitPrice": 1055.9046,
+      "totalPrice": 1055.9,
+      "id": 16
+    },
+    {
+      "item": "Samsung Universe 9",
+      "img_link": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "unitPrice": 1055.9046,
+      "totalPrice": 1055.9,
+      "id": 17
+    },
+    {
+      "item": "Samsung Universe 9",
+      "img_link": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "unitPrice": 1055.9046,
+      "totalPrice": 1055.9,
+      "id": 18
     }
   ]
 }
