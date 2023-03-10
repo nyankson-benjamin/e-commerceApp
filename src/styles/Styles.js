@@ -56,3 +56,56 @@ export const footerStyle = {
   height: "136px",
   margin: "auto",
 };
+
+export const BackButtonContainerStyle = {
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "flex-start",
+  padding: "0px",
+  width: "112px",
+  height: "20px",
+  flex: "none",
+  order: 2,
+  flexGrow: 0,
+  top: "414px",
+  marginTop: "39.5px",
+};
+
+export const BackArrowStyle = {
+  left: "20.83%",
+  right: "20.83%",
+  top: "20.83%",
+  bottom: "20.83%",
+  // position: "absolute",
+  color: "#667085",
+};
+
+export const BackButtonTextStyle = {
+  fontFamily: "Lato",
+  fontStyle: "normal",
+  fontWeight: 500,
+  fontSize: "14px",
+  lineHeight: "20px",
+  width: " 84px",
+  height: "20px",
+  color: "#667085",
+  flex: "none",
+  order: 1,
+  flexGrow: 0,
+};
+
+export const BackButtonStyle = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "row",
+  padding: "0px",
+  gap: "8px",
+  width: "112px",
+  height: "20px",
+  flex: "none",
+  order: 0,
+  flexGrow: 0,
+  top: "414px",
+  textDecoration: "none",
+};

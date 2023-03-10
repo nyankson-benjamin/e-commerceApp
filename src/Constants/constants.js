@@ -1,3 +1,5 @@
+import PersonIcon from "@mui/icons-material/Person";
+
 export const pages = ["Home", "Catalog", "Blog", "About us"];
 export const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -20,7 +22,7 @@ export const page = [
   },
   {
     id: 4,
-    name: "Login",
+    name: <PersonIcon />,
     route: "login",
   },
 ];

@@ -24,9 +24,6 @@ export default function Cart() {
     }
   }, [data, filt]);
 
-  useEffect(() => {
-    // console.log(data);
-  });
   return (
     <div>
       <AppsBar search={filt} handleChange={handleChange} />

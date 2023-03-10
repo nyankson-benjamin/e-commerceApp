@@ -14,7 +14,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useState, useEffect } from "react";
-
+import { API } from "../../Services/api";
 export default function CartTable({ data, cart, handleDelete }) {
   const [filt, setFilter] = useState("");
   // const [cart, setCart] = useState(data);
@@ -35,6 +35,8 @@ export default function CartTable({ data, cart, handleDelete }) {
   // useEffect(() => {
   //   console.log(data);
   // });
+
+  // const handleDelete = async () => {};
   return (
     <div>
       {/* <TextField
@@ -43,16 +45,22 @@ export default function CartTable({ data, cart, handleDelete }) {
         onChange={(e) => setFilter(e.target.value)}
       /> */}
       <br />
-      <TableContainer component={Paper}>
+      <TableContainer
+        component={Paper}
+        sx={{ textAlign: "center", margin: "10px" }}
+      >
         <Table>
           <TableHead>
-            <TableRow sx={{ fontSize: "3px", fontWeight: "bold" }}>
+            <TableRow
+              sx={{ fontSize: "3px", fontWeight: "bold", textAlign: "center" }}
+            >
               <TableCell>ID</TableCell>
+              <TableCell></TableCell>
               <TableCell>Item</TableCell>
               <TableCell>Quantity</TableCell>
               <TableCell>Unit Price ($)</TableCell>
               <TableCell>Total Price ($)</TableCell>
-              <TableCell>Action</TableCell>
+              <TableCell sx={{ textAlign: "center" }}>Action</TableCell>
             </TableRow>
           </TableHead>
           {cart?.length >= 1 ? (
@@ -60,20 +68,23 @@ export default function CartTable({ data, cart, handleDelete }) {
               {cart?.map((cart) => (
                 <TableRow key={cart.id}>
                   <TableCell>{cart.id}</TableCell>
+                  <TableCell>
+                    <img src={cart.img_link} style={{ width: "30px" }} />
+                  </TableCell>
                   <TableCell>{cart.item}</TableCell>
                   <TableCell>{cart.quantity}</TableCell>
                   <TableCell>{cart.unitPrice}</TableCell>
                   <TableCell>{cart.totalPrice}</TableCell>
 
                   <TableCell>
-                    <ButtonGroup>
+                    <ButtonGroup variant="contained" fullWidth>
                       <Button
                         variant="contained"
                         onClick={() => navigate(`/cartItem/buy/${cart.item}`)}
                       >
                         BUY
                       </Button>
-                      <IconButton onClick={handleDelete}>
+                      <IconButton onClick={() => handleDelete(cart.id)}>
                         <DeleteIcon />
                       </IconButton>
                     </ButtonGroup>

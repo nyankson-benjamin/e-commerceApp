@@ -16,6 +16,8 @@ import HomeDeco from "./ProductCategories/HomeDeco";
 import BuyProduct from "./Products/BuyProduct";
 import Cart from "./components/Cart/Cart";
 import Buy from "./components/Cart/Buy";
+import Signup from "./Pages/Signup";
+import VerifyEmail from "./components/User/VerifyEmail";
 function App() {
   return (
     <div className="App">
@@ -36,6 +38,8 @@ function App() {
         <Route path="/BuyProduct/:title" element={<BuyProduct />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/cartItem/buy/:title" element={<Buy />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/confirm" element={<VerifyEmail />} />
       </Routes>
     </div>
   );

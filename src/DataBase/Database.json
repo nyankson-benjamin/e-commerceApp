@@ -1,0 +1,25 @@
+{
+  "Cart": [],
+  "Users": [
+    {
+      "fname": "Benjamin",
+      "lname": "ee",
+      "email": "benjamin.nyankson@amalitech.com",
+      "contact": "123456",
+      "password": "123",
+      "confirmPass": "123",
+      "otp": 6597,
+      "id": 1
+    },
+    {
+      "fname": "Benjamin",
+      "lname": "ee",
+      "email": "milestech4@gmail.com",
+      "contact": "12345",
+      "password": "12345",
+      "confirmPass": "12345",
+      "otp": 4145,
+      "id": 2
+    }
+  ]
+}

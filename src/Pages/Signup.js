@@ -1,11 +1,11 @@
 import React from "react";
+import Register from "../components/User/Register";
 import AppsBar from "../TopBar/AppBar";
-import SignIn from "../components/User/SignIn";
-export default function Login() {
+export default function Signup() {
   return (
     <div>
       <AppsBar />
-      <SignIn />
+      <Register />
     </div>
   );
 }

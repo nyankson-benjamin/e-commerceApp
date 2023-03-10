@@ -22,12 +22,22 @@ import { navLinkStyle } from "../styles/Styles";
 import CartLength from "../components/Cart/CartLength";
 import { Search } from "@mui/icons-material";
 import Searchitem from "../components/Searchitem";
+import useLogin from "../Hooks/useLogin";
 export default function AppsBar({ ItemCategory, search, handleChange }) {
   const [screenWidth] = useScreenWidth();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [category, setCategory] = useState(null);
   const navigate = useNavigate();
-
+  const [
+    handleSubmit,
+    email,
+    password,
+    disable,
+    handleEmail,
+    handlePassword,
+    isLoggedIn,
+    logOut,
+  ] = useLogin();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -35,6 +45,10 @@ export default function AppsBar({ ItemCategory, search, handleChange }) {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  // useEffect(() => {
+  //   console.log(isLoggedIn);
+  // });
 
   return (
     <Stack>
@@ -54,6 +68,9 @@ export default function AppsBar({ ItemCategory, search, handleChange }) {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 Shop
               </Typography>
+            )}
+            {isLoggedIn === true && (
+              <p style={{ color: "red" }}>IM LOGGED IN</p>
             )}
           </Box>
           {/* {screenWidth < 498 && ItemCategory.length > 7 ? ( */}
