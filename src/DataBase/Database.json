@@ -5,21 +5,49 @@
       "fname": "Benjamin",
       "lname": "ee",
       "email": "benjamin.nyankson@amalitech.com",
-      "contact": "123456",
-      "password": "123",
-      "confirmPass": "123",
-      "otp": 6597,
-      "id": 1
-    },
-    {
-      "fname": "Benjamin",
-      "lname": "ee",
-      "email": "milestech4@gmail.com",
       "contact": "12345",
       "password": "12345",
       "confirmPass": "12345",
-      "otp": 4145,
+      "otp": "2743",
+      "id": 1
+    }
+  ],
+  "Sales": [
+    {
+      "price": 4426.32,
+      "id": 1
+    },
+    {
+      "price": 202.44,
       "id": 2
+    },
+    {
+      "price": 477.85,
+      "id": 3
+    },
+    {
+      "price": 229.85,
+      "id": 4
+    },
+    {
+      "price": 229.85,
+      "id": 5
+    },
+    {
+      "price": 229.85,
+      "id": 6
+    },
+    {
+      "price": 229.85,
+      "id": 7
+    },
+    {
+      "price": 229.85,
+      "id": 8
+    },
+    {
+      "price": 378317570.4,
+      "id": 9
     }
   ]
 }
