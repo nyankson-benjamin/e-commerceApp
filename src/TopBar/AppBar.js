@@ -69,7 +69,7 @@ export default function AppsBar({ ItemCategory, search, handleChange }) {
                 Shop
               </Typography>
             )}
-            {isLoggedIn === true && (
+            {isLoggedIn  && (
               <p style={{ color: "red" }}>IM LOGGED IN</p>
             )}
           </Box>
