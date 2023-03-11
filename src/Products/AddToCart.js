@@ -7,13 +7,20 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { baseURL } from "../Constants/urls";
 import { API } from "../Services/api";
 import { useNavigate } from "react-router-dom";
+import useCart from "../Hooks/useCart";
+import Modals from "../components/Cart/Modals";
+import Alert from "../components/Alert/Alerts";
 export default function AddToCart({ product }) {
   const [image, setImage] = useState(product.thumbnail);
   const [screenWidth] = useScreenWidth();
   const [value, setValue] = useState(1);
   const [disable, setDisable] = useState(true);
   const navigate = useNavigate();
-
+  const [open, setOpen] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
+  const [message, setMessage] = useState();
+  const [severity, setSeverity] = useState();
+  const [data] = useCart();
   useEffect(() => {
     if (value < 0) {
       setValue(0);
@@ -26,27 +33,78 @@ export default function AddToCart({ product }) {
     // }
   }, [value]);
 
-  const handleAddToCart = async (e) => {
-    const cartItem = {
-      item: product.title,
-      img_link: image,
-      quantity: value,
-      unitPrice:
-        product.price - (product.discountPercentage / 100) * product.price,
-      totalPrice:
-        (
-          product.price -
-          (product.discountPercentage / 100) * product.price
-        ).toFixed(2) * value,
-    };
+  const cartItem = {
+    item: product.title,
+    img_link: image,
+    quantity: value,
+    unitPrice:
+      product.price - (product.discountPercentage / 100) * product.price,
+    totalPrice:
+      (
+        product.price -
+        (product.discountPercentage / 100) * product.price
+      ).toFixed(2) * value,
+  };
 
-    try {
-      const response = await API.post("Cart/", { ...cartItem });
-    } catch (error) {}
-    console.log(cartItem);
+  const products = data?.find((product) => product.item === cartItem.item);
+  const handleAddToCart = async (e) => {
+    if (products && products.item === cartItem.item) {
+      // alert("product already exist");
+      setMessage(`${cartItem.item}  already exits in your cart`);
+      setOpenAlert(true);
+      setSeverity("error");
+      setOpen(true);
+    } else {
+      try {
+        const response = await API.post("Cart/", { ...cartItem });
+        setOpenAlert(true);
+        setMessage(`${cartItem.item} has been successfully added to your cart`);
+        setSeverity("success");
+        // setDisable(true);
+        setTimeout(() => {
+          navigate("/cart");
+        }, 6000);
+      } catch (error) {}
+      console.log(cartItem);
+    }
+  };
+
+  const handleClose = () => setOpen(false);
+  const Update = async (price, value, id) => {
+    const quantity = value;
+    const totalPrice = price;
+    const data = { totalPrice, quantity };
+    await API.patch("Cart/" + id, { ...data });
+  };
+
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenAlert(false);
   };
   return (
     <Box>
+      {products && (
+        <Modals
+          open={open}
+          handleClose={handleClose}
+          ItemValue={products.quantity}
+          ItemPrice={products.totalPrice}
+          Update={Update}
+          id={products.id}
+          item={products.item}
+        />
+      )}
+
+      <Alert
+        openAlert={openAlert}
+        message={message}
+        severity={severity}
+        handleCloseAlert={handleCloseAlert}
+      />
+
       <h2>ADD TO CART</h2>
       {screenWidth < 498 ? (
         <Box>
@@ -111,7 +169,7 @@ export default function AddToCart({ product }) {
                   inputProps: {
                     style: {
                       textAlign: "center",
-                      width: "40px",
+                      width: "60px",
                       fontSize: "30px",
                       height: "20px",
                     },
