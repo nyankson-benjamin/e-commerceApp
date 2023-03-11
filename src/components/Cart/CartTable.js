@@ -37,6 +37,13 @@ export default function CartTable({ data, cart, handleDelete }) {
   // });
 
   // const handleDelete = async () => {};
+
+  const totalAmount = [];
+
+  cart?.forEach((element) => {
+    totalAmount.push(element.totalPrice);
+  });
+  // console.log(totalAmount);
   return (
     <div>
       {/* <TextField
@@ -80,7 +87,7 @@ export default function CartTable({ data, cart, handleDelete }) {
                     <ButtonGroup variant="contained" fullWidth>
                       <Button
                         variant="contained"
-                        onClick={() => navigate(`/cartItem/buy/${cart.item}`)}
+                        onClick={() => navigate(`/cartItem/buy/${cart.id}`)}
                       >
                         BUY
                       </Button>
@@ -89,6 +96,7 @@ export default function CartTable({ data, cart, handleDelete }) {
                       </IconButton>
                     </ButtonGroup>
                   </TableCell>
+                  <TableRow></TableRow>
                 </TableRow>
               ))}
             </TableBody>
@@ -99,6 +107,24 @@ export default function CartTable({ data, cart, handleDelete }) {
               </TableRow>
             </TableBody>
           )}
+          {/* <TableBody>
+            <TableRow>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell>
+                <b>Total Amount</b>
+              </TableCell>
+              {totalAmount.length >= 1 && (
+                <TableCell>
+                  {totalAmount
+                    .reduce((total, currentValue) => total + currentValue)
+                    .toFixed(2)}
+                </TableCell>
+              )}
+            </TableRow>
+          </TableBody> */}
         </Table>
       </TableContainer>
     </div>
