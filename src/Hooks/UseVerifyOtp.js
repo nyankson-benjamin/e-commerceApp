@@ -1,5 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import useUsers from "./useUsers";
+import { useNavigate } from "react-router-dom";
 export default function useVerifyOtp() {
   const [otp, setOTP] = useState("");
   const otpInputRef = useRef();
@@ -7,6 +8,8 @@ export default function useVerifyOtp() {
   const [hasErrored, setHasErrored] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [users] = useUsers();
+  const [code, setCode] = useState();
+  const navigate = useNavigate();
   function handleOTPChange(value) {
     if (isNaN(value)) {
       setDisable(true);
@@ -49,12 +52,20 @@ export default function useVerifyOtp() {
     setOTP(newValue);
   }
   const user = users?.find((user) => user.otp === otp);
-  const handleSubmit = async (event) => {
-  
+
+  useEffect(() => {
     if (user) {
-        console.log(user);
-      if (otp === user.otp) {
+      setCode(user.otp);
+    }
+  }, [user]);
+
+  const handleSubmit = async (event) => {
+    if (user) {
+      // console.log(user);
+      if (otp === code) {
         alert("verification successfull");
+        setCode();
+        navigate("/login");
       } else {
         alert("invalid verification code");
       }
