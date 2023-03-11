@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { API } from "../Services/api";
+import { useNavigate } from "react-router-dom";
 export default function useCart() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -21,5 +24,17 @@ export default function useCart() {
     const newCart = data?.filter((cart) => cart.id !== id);
     setData(newCart);
   };
-  return [data, loading, handleDelete];
+
+  const handleBuy = async (id, price) => {
+    const data = { price };
+    await API.post("/Sales", { ...data });
+
+    await API.delete("/Cart/" + id);
+    const newCart = data?.filter((cart) => cart.id !== id);
+    setData(newCart);
+    setTimeout(() => {
+      navigate("/cart");
+    }, 2000);
+  };
+  return [data, loading, handleDelete, handleBuy];
 }
