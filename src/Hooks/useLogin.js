@@ -21,17 +21,32 @@ export default function useLogin() {
   const user = users?.find((user) => user.email === email);
 
   const handleSubmit = () => {
-    if (user) {
-      if (email === user.email && password === user.password) {
-        //   alert("LoggedIn");
-        setIsLoggedIn(true);
-        console.log(user);
-      }
-    } else {
+    // if (user) {
+    // return;
+    const userIsLoggedin = checkCredential(email, password);
+    if (!userIsLoggedin) {
       alert("Invalid credentials supplied");
       setIsLoggedIn(false);
+    } else {
+      setIsLoggedIn(true);
+      console.log(user);
     }
+    // }
+    // } else {
+    //   alert("Invalid credentials supplied");
+    //   setIsLoggedIn(false);
+    // }
   };
+
+  const checkCredential = (email, password) => {
+    return email === user.email && password === user.password;
+  };
+
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     setIsLoggedIn(true);
+  //   }
+  // });
 
   const logOut = () => {
     setIsLoggedIn(false);
@@ -44,6 +59,7 @@ export default function useLogin() {
     handleEmail,
     handlePassword,
     isLoggedIn,
+    checkCredential,
     logOut,
   ];
 }
