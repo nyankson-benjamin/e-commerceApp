@@ -11,6 +11,6 @@ export default function useUsers() {
       } catch (error) {}
     };
     fetch();
-  });
+  }, []);
   return [users];
 }
