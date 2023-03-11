@@ -16,7 +16,7 @@ export default function useRegister() {
   const user = users?.find((user) => user.email === email);
   var minm = 1000;
   var maxm = 9999;
-  const otp = Math.floor(Math.random() * (maxm - minm + 1)) + minm;
+  const otp = (Math.floor(Math.random() * (maxm - minm + 1)) + minm).toString();
   const data = { fname, lname, email, contact, password, confirmPass, otp };
 
   const handleSubmit = async () => {
@@ -30,7 +30,7 @@ export default function useRegister() {
         console.log(response);
         alert(`Your verication code is: ${otp}`);
         setTimeout(() => {
-          navigate('/confirm')
+          navigate("/confirm");
         }, 2000);
       } catch (error) {}
     }
