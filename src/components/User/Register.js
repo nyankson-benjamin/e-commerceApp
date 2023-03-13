@@ -15,14 +15,8 @@ import SignupButton from "../../CardSlider/Buttons/SignupButton";
 import useRegister from "../../Hooks/useRegister";
 import { Link } from "react-router-dom";
 export default function Register() {
-  const [
-    handleSubmit,
-    handleChange,
-    disable,
-    country,
-    handleCountry,
-    handleLog,
-  ] = useRegister();
+  const [handleSubmit, handleChange, disable, country, handleCountry] =
+    useRegister();
   return (
     <FormControl sx={{ width: "80%" }}>
       <h3>Create an Account</h3>
@@ -78,7 +72,7 @@ export default function Register() {
       </Box>
       <br />
       <SignupButton handleSubmit={handleSubmit} disable={disable} />
-      <Button onClick={handleLog}>Country</Button>
+
       <p>
         {" "}
         Already have an account? Login <Link to="/login">here</Link>{" "}

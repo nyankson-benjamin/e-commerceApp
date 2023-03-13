@@ -3,40 +3,37 @@
   "Users": [
     {
       "fname": "Benjamin",
-      "lname": "ee",
-      "email": "benjamin.nyankson@amalitech.com",
+      "lname": "1111",
+      "email": "anokyepatience4@gmail.com",
       "contact": "1111",
       "password": "1111",
       "confirmPass": "1111",
       "otp": "",
-      "country": "Australia",
+      "country": "Antarctica",
       "isVerified": true,
       "id": 1
     },
     {
       "fname": "Benjamin",
-      "lname": "ss",
-      "email": "benjamin.nyankson@amalitech.co",
-      "contact": "1111",
+      "lname": "ee",
+      "email": "benjamin.nyankson@amalitech.com",
+      "contact": "11111",
       "password": "1111",
       "confirmPass": "1111",
-      "otp": "6287",
-      "country": "Austria",
-      "isVerified": false,
+      "otp": "",
+      "country": "Argentina",
+      "isVerified": true,
       "id": 2
-    },
-    {
-      "fname": "Benjamin",
-      "lname": "ee",
-      "email": "milestech4@gmail.com",
-      "contact": "111",
-      "password": "111",
-      "confirmPass": "111",
-      "otp": "8442",
-      "country": "Austria",
-      "isVerified": false,
-      "id": 3
     }
   ],
-  "Sales": []
+  "Sales": [
+    {
+      "price": 1436.79,
+      "id": 1
+    },
+    {
+      "price": 737.72,
+      "id": 2
+    }
+  ]
 }

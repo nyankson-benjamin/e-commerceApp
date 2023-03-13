@@ -17,40 +17,18 @@ import { useState, useEffect } from "react";
 import { API } from "../../Services/api";
 export default function CartTable({ data, cart, handleDelete }) {
   const [filt, setFilter] = useState("");
-  // const [cart, setCart] = useState(data);
+
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   setCart(data);
-
-  //   if (filt) {
-  //     setCart(
-  //       data?.filter((filter) =>
-  //         filter.title.toLowerCase().includes(filt.toLowerCase())
-  //       )
-  //     );
-  //   }
-  // });
-
-  // useEffect(() => {
-  //   console.log(data);
-  // });
-
-  // const handleDelete = async () => {};
-
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
   const totalAmount = [];
 
   cart?.forEach((element) => {
     totalAmount.push(element.totalPrice);
   });
-  // console.log(totalAmount);
+
   return (
     <div>
-      {/* <TextField
-        placeholder="search"
-        value={filt}
-        onChange={(e) => setFilter(e.target.value)}
-      /> */}
       <br />
       <TableContainer
         component={Paper}
@@ -87,7 +65,13 @@ export default function CartTable({ data, cart, handleDelete }) {
                     <ButtonGroup variant="contained" fullWidth>
                       <Button
                         variant="contained"
-                        onClick={() => navigate(`/cartItem/buy/${cart.id}`)}
+                        onClick={() => {
+                          if (isLoggedIn) {
+                            navigate(`/cartItem/buy/${cart.id}`);
+                          } else {
+                            navigate("/login");
+                          }
+                        }}
                       >
                         BUY
                       </Button>
@@ -112,24 +96,6 @@ export default function CartTable({ data, cart, handleDelete }) {
               </TableRow>
             </TableBody>
           )}
-          {/* <TableBody>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell>
-                <b>Total Amount</b>
-              </TableCell>
-              {totalAmount.length >= 1 && (
-                <TableCell>
-                  {totalAmount
-                    .reduce((total, currentValue) => total + currentValue)
-                    .toFixed(2)}
-                </TableCell>
-              )}
-            </TableRow>
-          </TableBody> */}
         </Table>
       </TableContainer>
     </div>

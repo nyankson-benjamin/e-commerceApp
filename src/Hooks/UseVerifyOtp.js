@@ -10,6 +10,12 @@ export default function useVerifyOtp() {
   const [isLoading, setIsLoading] = useState(false);
   const [users] = useUsers();
   const [code, setCode] = useState();
+
+  const [alerts, setAlerts] = useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
   const navigate = useNavigate();
   function handleOTPChange(value) {
     if (isNaN(value)) {
@@ -64,15 +70,43 @@ export default function useVerifyOtp() {
     if (user) {
       // console.log(user);
       if (otp === code) {
-        alert("verification successfull");
+        // alert("verification successfull");
+        setAlerts({
+          open: true,
+          message: "verification successfull",
+          severity: "success",
+        });
         const data = { isVerified: true, otp: "" };
         await API.patch("Users/" + user.id, { ...data });
         setCode();
-        navigate("/login");
-      } else {
-        alert("invalid verification code");
+        setTimeout(() => {
+          navigate("/login");
+        }, 6000);
+      } else if (code.length !== 4) {
+        setAlerts({
+          open: true,
+          message: "Invalid verification code. PLease login first",
+          severity: "error",
+        });
+
+        setTimeout(() => {
+          navigate("/signup");
+        }, 3000);
       }
     }
+  };
+
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    // setOpenAlert(false);
+    setAlerts({
+      open: false,
+      message: "",
+      severity: "",
+    });
   };
 
   return [
@@ -85,5 +119,7 @@ export default function useVerifyOtp() {
     otpInputRef,
     hasErrored,
     isLoading,
+    alerts,
+    handleCloseAlert,
   ];
 }

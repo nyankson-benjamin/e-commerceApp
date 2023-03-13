@@ -106,15 +106,5 @@ export default function useRegister() {
     console.log(country);
   }, []);
 
-  const handleLog = () => {
-    console.log(country);
-  };
-  return [
-    handleSubmit,
-    handleChange,
-    disable,
-    country,
-    handleCountry,
-    handleLog,
-  ];
+  return [handleSubmit, handleChange, disable, country, handleCountry];
 }

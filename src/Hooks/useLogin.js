@@ -5,10 +5,9 @@ export default function useLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disable, setDisable] = useState(false);
-
   const navigate = useNavigate();
   const [users] = useUsers();
-  const [alert, setAlert] = useState({
+  const [alerts, setAlerts] = useState({
     open: false,
     message: "",
     severity: "",
@@ -31,17 +30,31 @@ export default function useLogin() {
   const handleSubmit = () => {
     const userIsLoggedin = checkCredential(email, password);
     if (user && user.isVerified === false) {
-      navigate("/confirm");
+      // alert("hfhfhfh");
+      setAlerts({
+        open: true,
+        message: "Please confirm your email first",
+        severity: "info",
+      });
+      setTimeout(() => {
+        navigate("/confirm");
+      }, 3000);
     } else if (!userIsLoggedin) {
-      setAlert({
+      setAlerts({
         open: true,
         message: "Invalid credentials supplied",
         severity: "error",
       });
+      console.log("error");
     } else {
       console.log(user);
       localStorage.setItem("isLoggedIn", true);
       localStorage.setItem("id", user.id);
+      setAlerts({
+        open: true,
+        message: "Login success. Redirecting to homepage",
+        severity: "success",
+      });
       setTimeout(() => {
         navigate("/products");
       }, 2000);
@@ -54,7 +67,15 @@ export default function useLogin() {
   };
 
   const checkCredential = (email, password) => {
-    return email === user.email && password === user.password;
+    if (user) {
+      return email === user.email && password === user.password;
+    } else {
+      setAlerts({
+        open: true,
+        message: "Login success. Redirecting to homepage",
+        severity: "error",
+      });
+    }
   };
 
   const handleLogOut = () => {
@@ -63,7 +84,17 @@ export default function useLogin() {
     navigate("/login");
   };
 
-  const handleCloseAlert = () => {};
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    // setOpenAlert(false);
+    setAlerts({
+      open: false,
+      message: "",
+      severity: "",
+    });
+  };
   return [
     handleSubmit,
     email,
@@ -73,6 +104,7 @@ export default function useLogin() {
     handlePassword,
     checkCredential,
     handleLogOut,
-    alert,
+    alerts,
+    handleCloseAlert,
   ];
 }
