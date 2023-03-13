@@ -11,13 +11,29 @@ export default function useRegister() {
   const [hashPassword, setHashPassword] = useState("");
   const [confirmPass, setConfirmpass] = useState("");
   const [disable, setDisable] = useState(false);
+  const [country, setCountry] = useState("");
   const [users] = useUsers();
   const navigate = useNavigate();
   const user = users?.find((user) => user.email === email);
   var minm = 1000;
   var maxm = 9999;
   const otp = (Math.floor(Math.random() * (maxm - minm + 1)) + minm).toString();
-  const data = { fname, lname, email, contact, password, confirmPass, otp };
+
+  const handleCountry = (event) => {
+    setCountry(event.target.value);
+  };
+
+  const data = {
+    fname,
+    lname,
+    email,
+    contact,
+    password,
+    confirmPass,
+    otp,
+    country,
+    isVerified: false,
+  };
 
   const handleSubmit = async () => {
     if (user && user.email === email) {
@@ -86,5 +102,19 @@ export default function useRegister() {
     data.confirmPass,
   ]);
 
-  return [handleSubmit, handleChange, disable];
+  useEffect(() => {
+    console.log(country);
+  }, []);
+
+  const handleLog = () => {
+    console.log(country);
+  };
+  return [
+    handleSubmit,
+    handleChange,
+    disable,
+    country,
+    handleCountry,
+    handleLog,
+  ];
 }

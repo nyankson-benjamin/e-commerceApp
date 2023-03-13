@@ -22,12 +22,17 @@ import { navLinkStyle } from "../styles/Styles";
 import CartLength from "../components/Cart/CartLength";
 import { Search } from "@mui/icons-material";
 import Searchitem from "../components/Searchitem";
+import PersonIcon from "@mui/icons-material/Person";
+
+import useUsers from "../Hooks/useUsers";
 import useLogin from "../Hooks/useLogin";
+import Desktop from "./Devices/Desktop";
+import Mobile from "./Devices/Mobile";
 export default function AppsBar({ ItemCategory, search, handleChange }) {
   const [screenWidth] = useScreenWidth();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [category, setCategory] = useState(null);
-  const navigate = useNavigate();
+  const [users] = useUsers();
   const [
     handleSubmit,
     email,
@@ -35,9 +40,11 @@ export default function AppsBar({ ItemCategory, search, handleChange }) {
     disable,
     handleEmail,
     handlePassword,
-    isLoggedIn,
-    logOut,
+    checkCredential,
+    handleLogOut,
   ] = useLogin();
+  const navigate = useNavigate();
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -46,9 +53,18 @@ export default function AppsBar({ ItemCategory, search, handleChange }) {
     setAnchorElNav(null);
   };
 
+  const isLoggedIn = Boolean(localStorage.getItem("isLoggedIn"));
+  const id = localStorage.getItem("id");
+
+  const user = users?.find((user) => user.id === Number(id));
   // useEffect(() => {
   //   console.log(isLoggedIn);
-  // });
+  //   console.log(typeof isLoggedIn);
+  //   console.log(id);
+  //   // console.log(typeof id);
+
+  //   console.log(user);
+  // }, [isLoggedIn, user]);
 
   return (
     <Stack>
@@ -68,9 +84,6 @@ export default function AppsBar({ ItemCategory, search, handleChange }) {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 Shop
               </Typography>
-            )}
-            {isLoggedIn  && (
-              <p style={{ color: "red" }}>IM LOGGED IN</p>
             )}
           </Box>
           {/* {screenWidth < 498 && ItemCategory.length > 7 ? ( */}
@@ -93,148 +106,157 @@ export default function AppsBar({ ItemCategory, search, handleChange }) {
           </Typography>
 
           {screenWidth > 498 ? (
-            <Stack direction="row" spacing={3} sx={{ alignItems: "center" }}>
-              {/* <TextField
-                sx={{ width: "300px", mr: 20, color: "white" }}
-                placeholder="Search"
-              /> */}
-              <Searchitem search={search} handleChange={handleChange} />
-              <CartLength />
-              {page.map((page) => (
-                <Button
-                  sx={navLinkStyle}
-                  color="inherit"
-                  onClick={() => navigate(`/${page.route}`)}
-                  key={page.id}
-                >
-                  {page.name}
-                </Button>
-              ))}
-              <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Categories">
-                  <Button
-                    onClick={(event) => setCategory(event.currentTarget)}
-                    sx={{ p: 0 }}
-                    color="inherit"
-                    endIcon={<KeyboardArrowDownIcon />}
-                  >
-                    Categories
-                  </Button>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: "45px" }}
-                  id="menu-appbar"
-                  anchorEl={category}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(category)}
-                  onClose={() => setCategory(null)}
-                >
-                  {categories.map((category) => (
-                    <Link to={`/categories/${category}`} key={category}>
-                      <MenuItem>
-                        <Typography textAlign="center">{category}</Typography>
-                      </MenuItem>
-                    </Link>
-                  ))}
-                </Menu>
-              </Box>
-            </Stack>
+            // <Stack direction="row" spacing={3} sx={{ alignItems: "center" }}>
+            //   {/* <TextField
+            //     sx={{ width: "300px", mr: 20, color: "white" }}
+            //     placeholder="Search"
+            //   /> */}
+            //   <Searchitem search={search} handleChange={handleChange} />
+            //   <CartLength />
+            //   {page.map((page) => (
+            //     <Button
+            //       sx={navLinkStyle}
+            //       color="inherit"
+            //       onClick={() => navigate(`/${page.route}`)}
+            //       key={page.id}
+            //     >
+            //       {page.name}
+            //     </Button>
+            //   ))}
+            //   <Box sx={{ flexGrow: 0 }}>
+            //     <Tooltip title="Categories">
+            //       <Button
+            //         onClick={(event) => setCategory(event.currentTarget)}
+            //         sx={{ p: 0 }}
+            //         color="inherit"
+            //         endIcon={<KeyboardArrowDownIcon />}
+            //       >
+            //         Categories
+            //       </Button>
+            //     </Tooltip>
+            //     <Menu
+            //       sx={{ mt: "45px" }}
+            //       id="menu-appbar"
+            //       anchorEl={category}
+            //       anchorOrigin={{
+            //         vertical: "top",
+            //         horizontal: "right",
+            //       }}
+            //       keepMounted
+            //       transformOrigin={{
+            //         vertical: "top",
+            //         horizontal: "right",
+            //       }}
+            //       open={Boolean(category)}
+            //       onClose={() => setCategory(null)}
+            //     >
+            //       {categories.map((category) => (
+            //         <Link to={`/categories/${category}`} key={category}>
+            //           <MenuItem>
+            //             <Typography textAlign="center">{category}</Typography>
+            //           </MenuItem>
+            //         </Link>
+            //       ))}
+            //     </Menu>
+            //   </Box>
+            // </Stack>
+            <Desktop
+              search={search}
+              handleChange={handleChange}
+              handleLogOut={handleLogOut}
+            />
           ) : (
             screenWidth <= 498 && (
-              <Stack
-                direction="row"
-                spacing={3} // sx={{
-              >
-                <Box
-                  sx={{ flexGrow: 0, alignItems: "center", display: "flex" }}
-                >
-                  <IconButton color="inherit">
-                    <Search />
-                  </IconButton>
+              // <Stack
+              //   direction="row"
+              //   spacing={3} // sx={{
+              // >
+              //   <Box
+              //     sx={{ flexGrow: 0, alignItems: "center", display: "flex" }}
+              //   >
+              //     <IconButton color="inherit">
+              //       <Search />
+              //     </IconButton>
 
-                  <CartLength />
-                  <Tooltip title="Open settings">
-                    <Button
-                      onClick={(event) => setCategory(event.currentTarget)}
-                      sx={{ p: 0, ml: 3 }}
-                      color="inherit"
-                      endIcon={<KeyboardArrowDownIcon />}
-                    >
-                      Categories
-                    </Button>
-                  </Tooltip>
-                  <Menu
-                    sx={{ mt: "45px" }}
-                    id="menu-appbar"
-                    anchorEl={category}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    open={Boolean(category)}
-                    onClose={() => setCategory(null)}
-                  >
-                    {categories.map((category) => (
-                      <MenuItem
-                        key={category}
-                        onClick={() => navigate(`/categories/${category}`)}
-                      >
-                        <Typography textAlign="center">{category}</Typography>
-                      </MenuItem>
-                    ))}
-                  </Menu>
-                </Box>
-                <IconButton
-                  color="inherit"
-                  onClick={handleOpenNavMenu}
-                  sx={{ p: 0 }}
-                >
-                  <MenuIcon />
-                </IconButton>
+              //     <CartLength />
+              //     <Tooltip title="Open settings">
+              //       <Button
+              //         onClick={(event) => setCategory(event.currentTarget)}
+              //         sx={{ p: 0, ml: 3 }}
+              //         color="inherit"
+              //         endIcon={<KeyboardArrowDownIcon />}
+              //       >
+              //         Categories
+              //       </Button>
+              //     </Tooltip>
+              //     <Menu
+              //       sx={{ mt: "45px" }}
+              //       id="menu-appbar"
+              //       anchorEl={category}
+              //       anchorOrigin={{
+              //         vertical: "top",
+              //         horizontal: "right",
+              //       }}
+              //       keepMounted
+              //       transformOrigin={{
+              //         vertical: "top",
+              //         horizontal: "right",
+              //       }}
+              //       open={Boolean(category)}
+              //       onClose={() => setCategory(null)}
+              //     >
+              //       {categories.map((category) => (
+              //         <MenuItem
+              //           key={category}
+              //           onClick={() => navigate(`/categories/${category}`)}
+              //         >
+              //           <Typography textAlign="center">{category}</Typography>
+              //         </MenuItem>
+              //       ))}
+              //     </Menu>
+              //   </Box>
+              //   <IconButton
+              //     color="inherit"
+              //     onClick={handleOpenNavMenu}
+              //     sx={{ p: 0 }}
+              //   >
+              //     <MenuIcon />
+              //   </IconButton>
 
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorElNav}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorElNav)}
-                  onClose={handleCloseNavMenu}
-                  sx={{
-                    display: { xs: "block", md: "none" },
-                  }}
-                >
-                  {page.map((page) => (
-                    <MenuItem key={page.id} onClick={handleCloseNavMenu}>
-                      <Typography
-                        textAlign="center"
-                        onClick={() => navigate(`/${page.route}`)}
-                      >
-                        {page.name}
-                      </Typography>
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Stack>
+              //   <Menu
+              //     id="menu-appbar"
+              //     anchorEl={anchorElNav}
+              //     anchorOrigin={{
+              //       vertical: "bottom",
+              //       horizontal: "right",
+              //     }}
+              //     keepMounted
+              //     transformOrigin={{
+              //       vertical: "top",
+              //       horizontal: "right",
+              //     }}
+              //     open={Boolean(anchorElNav)}
+              //     onClose={handleCloseNavMenu}
+              //     sx={{
+              //       display: { xs: "block", md: "none" },
+              //     }}
+              //   >
+              //     {page.map((page) => (
+              //       <MenuItem key={page.id} onClick={handleCloseNavMenu}>
+              //         <Typography
+              //           textAlign="center"
+              //           onClick={() => navigate(`/${page.route}`)}
+              //         >
+              //           {page.name}
+              //         </Typography>
+              //       </MenuItem>
+              //     ))}
+              //     <MenuItem onClick={handleCloseNavMenu}>
+              //       <PersonIcon onClick={() => navigate("/login")} />
+              //     </MenuItem>
+              //   </Menu>
+              // </Stack>
+              <Mobile handleLogOut={handleLogOut} />
             )
           )}
         </Toolbar>

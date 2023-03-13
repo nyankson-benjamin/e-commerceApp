@@ -12,12 +12,20 @@ import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { Link } from "react-router-dom";
 import LoginButton from "../../CardSlider/Buttons/LoginButton";
 import useLogin from "../../Hooks/useLogin";
-
+import Alerts from "../Alert/Alerts";
 function SignIn() {
-  const [handleSubmit, email, password, disable, handleEmail, handlePassword] =
-    useLogin();
+  const [
+    handleSubmit,
+    email,
+    password,
+    disable,
+    handleEmail,
+    handlePassword,
+    alert,
+  ] = useLogin();
   return (
     <FormControl sx={{ width: "70%", mt: "100px" }}>
+      <Alerts alert={alert} />
       <h3>Log in to your account</h3>
       <FormLabel
         sx={{ textAlign: "left", mt: 2, mb: 1, fontWeight: "bold" }}

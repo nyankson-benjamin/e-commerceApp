@@ -1,17 +1,28 @@
 import React from "react";
 import { signUp } from "../../Constants/signup";
+import { countries } from "../../Constants/Countries";
 import {
   FormControl,
   TextField,
   Box,
   FormLabel,
   InputAdornment,
+  Autocomplete,
+  MenuItem,
+  Button,
 } from "@mui/material";
 import SignupButton from "../../CardSlider/Buttons/SignupButton";
 import useRegister from "../../Hooks/useRegister";
 import { Link } from "react-router-dom";
 export default function Register() {
-  const [handleSubmit, handleChange, disable] = useRegister();
+  const [
+    handleSubmit,
+    handleChange,
+    disable,
+    country,
+    handleCountry,
+    handleLog,
+  ] = useRegister();
   return (
     <FormControl sx={{ width: "80%" }}>
       <h3>Create an Account</h3>
@@ -48,7 +59,26 @@ export default function Register() {
           />
         </Box>
       ))}
+      <br />
+
+      <Box sx={{ textAlign: "left" }}>
+        <TextField
+          select
+          fullWidth
+          value={country}
+          label="Choose a country"
+          onChange={handleCountry}
+        >
+          {countries.map((country, index) => (
+            <MenuItem value={country.label} key={index}>
+              {country.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Box>
+      <br />
       <SignupButton handleSubmit={handleSubmit} disable={disable} />
+      <Button onClick={handleLog}>Country</Button>
       <p>
         {" "}
         Already have an account? Login <Link to="/login">here</Link>{" "}

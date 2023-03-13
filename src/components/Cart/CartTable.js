@@ -11,7 +11,7 @@ import {
   ButtonGroup,
   IconButton,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useState, useEffect } from "react";
 import { API } from "../../Services/api";
@@ -103,7 +103,12 @@ export default function CartTable({ data, cart, handleDelete }) {
           ) : (
             <TableBody>
               <TableRow>
-                <TableCell>No result found</TableCell>
+                <TableCell>
+                  No item found.
+                  <Button onClick={() => navigate("/products")}>
+                    Add new Item
+                  </Button>{" "}
+                </TableCell>
               </TableRow>
             </TableBody>
           )}

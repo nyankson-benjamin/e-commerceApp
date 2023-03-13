@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import useUsers from "./useUsers";
 import { useNavigate } from "react-router-dom";
+import { API } from "../Services/api";
 export default function useVerifyOtp() {
   const [otp, setOTP] = useState("");
   const otpInputRef = useRef();
@@ -64,6 +65,8 @@ export default function useVerifyOtp() {
       // console.log(user);
       if (otp === code) {
         alert("verification successfull");
+        const data = { isVerified: true, otp: "" };
+        await API.patch("Users/" + user.id, { ...data });
         setCode();
         navigate("/login");
       } else {

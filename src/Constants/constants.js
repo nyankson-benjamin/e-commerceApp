@@ -20,11 +20,11 @@ export const page = [
     name: "About us",
     route: "about",
   },
-  {
-    id: 4,
-    name: <PersonIcon />,
-    route: "login",
-  },
+  // {
+  //   id: 4,
+  //   name: <PersonIcon />,
+  //   route: "login",
+  // },
 ];
 
 export const categories = [

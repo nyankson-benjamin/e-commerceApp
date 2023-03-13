@@ -20,6 +20,12 @@ export default function AddToCart({ product }) {
   const [openAlert, setOpenAlert] = useState(false);
   const [message, setMessage] = useState();
   const [severity, setSeverity] = useState();
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
+  //TODO: refactor the alert system
   const [data] = useCart();
   useEffect(() => {
     if (value < 0) {

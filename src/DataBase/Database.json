@@ -5,49 +5,38 @@
       "fname": "Benjamin",
       "lname": "ee",
       "email": "benjamin.nyankson@amalitech.com",
-      "contact": "12345",
-      "password": "12345",
-      "confirmPass": "12345",
-      "otp": "2743",
-      "id": 1
-    }
-  ],
-  "Sales": [
-    {
-      "price": 4426.32,
+      "contact": "1111",
+      "password": "1111",
+      "confirmPass": "1111",
+      "otp": "",
+      "country": "Australia",
+      "isVerified": true,
       "id": 1
     },
     {
-      "price": 202.44,
+      "fname": "Benjamin",
+      "lname": "ss",
+      "email": "benjamin.nyankson@amalitech.co",
+      "contact": "1111",
+      "password": "1111",
+      "confirmPass": "1111",
+      "otp": "6287",
+      "country": "Austria",
+      "isVerified": false,
       "id": 2
     },
     {
-      "price": 477.85,
+      "fname": "Benjamin",
+      "lname": "ee",
+      "email": "milestech4@gmail.com",
+      "contact": "111",
+      "password": "111",
+      "confirmPass": "111",
+      "otp": "8442",
+      "country": "Austria",
+      "isVerified": false,
       "id": 3
-    },
-    {
-      "price": 229.85,
-      "id": 4
-    },
-    {
-      "price": 229.85,
-      "id": 5
-    },
-    {
-      "price": 229.85,
-      "id": 6
-    },
-    {
-      "price": 229.85,
-      "id": 7
-    },
-    {
-      "price": 229.85,
-      "id": 8
-    },
-    {
-      "price": 378317570.4,
-      "id": 9
     }
-  ]
+  ],
+  "Sales": []
 }
