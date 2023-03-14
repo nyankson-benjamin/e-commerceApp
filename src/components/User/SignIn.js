@@ -22,10 +22,11 @@ function SignIn() {
     handleEmail,
     handlePassword,
     alert,
+    handleCloseAlert,
   ] = useLogin();
   return (
     <FormControl sx={{ width: "70%", mt: "100px" }}>
-      <Alerts alert={alert} />
+      {/* <Alerts alert={alert} /> */}
       <h3>Log in to your account</h3>
       <FormLabel
         sx={{ textAlign: "left", mt: 2, mb: 1, fontWeight: "bold" }}

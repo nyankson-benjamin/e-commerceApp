@@ -27,14 +27,20 @@ export default function useCart() {
 
   const handleBuy = async (id, price) => {
     const data = { price };
-    await API.post("/Sales", { ...data });
+    const response = await API.post("/Sales", { ...data });
 
+    
     await API.delete("/Cart/" + id);
     const newCart = data?.filter((cart) => cart.id !== id);
     setData(newCart);
-    setTimeout(() => {
-      navigate("/cart");
-    }, 2000);
+
+    // setTimeout(() => {
+    if (response) {
+      alert("woer");
+    }
+
+    navigate("/cart");
+    // }, 3000);
   };
   return [data, loading, handleDelete, handleBuy];
 }

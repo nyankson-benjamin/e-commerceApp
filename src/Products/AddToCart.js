@@ -17,9 +17,7 @@ export default function AddToCart({ product }) {
   const [disable, setDisable] = useState(true);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [openAlert, setOpenAlert] = useState(false);
-  const [message, setMessage] = useState();
-  const [severity, setSeverity] = useState();
+
   const [alert, setAlert] = useState({
     open: false,
     message: "",
@@ -56,16 +54,23 @@ export default function AddToCart({ product }) {
   const handleAddToCart = async (e) => {
     if (products && products.item === cartItem.item) {
       // alert("product already exist");
-      setMessage(`${cartItem.item}  already exits in your cart`);
-      setOpenAlert(true);
-      setSeverity("error");
+
+      setAlert({
+        open: true,
+        message: `${cartItem.item}  already exits in your cart`,
+        severity: "error",
+      });
+
       setOpen(true);
     } else {
       try {
         const response = await API.post("Cart/", { ...cartItem });
-        setOpenAlert(true);
-        setMessage(`${cartItem.item} has been successfully added to your cart`);
-        setSeverity("success");
+        setAlert({
+          open: true,
+          message: `${cartItem.item}  has been successfully added to your cart`,
+          severity: "success",
+        });
+
         // setDisable(true);
         setTimeout(() => {
           navigate("/cart");
@@ -88,7 +93,12 @@ export default function AddToCart({ product }) {
       return;
     }
 
-    setOpenAlert(false);
+    // setOpenAlert(false);
+    setAlert({
+      open: false,
+      message: "",
+      severity: "",
+    });
   };
   return (
     <Box>
@@ -105,9 +115,10 @@ export default function AddToCart({ product }) {
       )}
 
       <Alert
-        openAlert={openAlert}
-        message={message}
-        severity={severity}
+        // openAlert={alert.open}
+        // message={alert.message}
+        // severity={alert.severity}
+        alert={alert}
         handleCloseAlert={handleCloseAlert}
       />
 

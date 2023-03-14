@@ -3,6 +3,7 @@ import useVerifyOtp from "../../Hooks/UseVerifyOtp";
 import OtpInput from "react-otp-input";
 import VerifyEmailButton from "../../CardSlider/Buttons/VerifyEmailButton";
 import BackButton from "../../CardSlider/Buttons/BackButton";
+import Alerts from "../Alert/Alerts";
 export default function VerifyEmail() {
   const [
     handleOTPChange,
@@ -14,10 +15,13 @@ export default function VerifyEmail() {
     otpInputRef,
     hasErrored,
     isLoading,
+    alerts,
+    handleCloseAlert,
   ] = useVerifyOtp();
   return (
     <div className="otp">
       {" "}
+      <Alerts alert={alerts} handleCloseAlert={handleCloseAlert} />
       <h3>Verify your Email</h3>
       <OtpInput
         ref={otpInputRef}

@@ -45,14 +45,6 @@ export default function AppsBar({ ItemCategory, search, handleChange }) {
   ] = useLogin();
   const navigate = useNavigate();
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
   const isLoggedIn = Boolean(localStorage.getItem("isLoggedIn"));
   const id = localStorage.getItem("id");
 
@@ -86,20 +78,6 @@ export default function AppsBar({ ItemCategory, search, handleChange }) {
               </Typography>
             )}
           </Box>
-          {/* {screenWidth < 498 && ItemCategory.length > 7 ? ( */}
-          <Typography
-            variant="h6"
-            component="div"
-            title={ItemCategory}
-            sx={{ flexGrow: 1 }}
-          >
-            {/* {ItemCategory.substring(0, 6) + "..."} */}
-          </Typography>
-          {/* ) : ( */}
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {ItemCategory}
-          </Typography>
-          {/* )} */}
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {/* MILES */}
@@ -110,6 +88,7 @@ export default function AppsBar({ ItemCategory, search, handleChange }) {
               search={search}
               handleChange={handleChange}
               handleLogOut={handleLogOut}
+              ItemCategory={ItemCategory}
             />
           ) : (
             screenWidth <= 498 && <Mobile handleLogOut={handleLogOut} />

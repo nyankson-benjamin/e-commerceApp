@@ -9,7 +9,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 // export default function Alerts({ openAlert, message, severity, handleCloseAlert }) {
-export default function Alerts({ alert }) {
+export default function Alerts({ alert, handleCloseAlert }) {
   useEffect(() => {
     // console.log(alert);
   });
@@ -18,10 +18,10 @@ export default function Alerts({ alert }) {
       <Snackbar
         open={alert.open}
         autoHideDuration={6000}
-        // onClose={handleCloseAlert}
+        onClose={handleCloseAlert}
       >
         <Alert
-          // onClose={handleCloseAlert}
+          onClose={handleCloseAlert}
           severity={alert.severity}
           sx={{ width: "100%" }}
         >
