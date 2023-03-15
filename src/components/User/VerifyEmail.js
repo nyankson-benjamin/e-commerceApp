@@ -1,8 +1,8 @@
 import React from "react";
 import useVerifyOtp from "../../Hooks/UseVerifyOtp";
 import OtpInput from "react-otp-input";
-import VerifyEmailButton from "../../CardSlider/Buttons/VerifyEmailButton";
-import BackButton from "../../CardSlider/Buttons/BackButton";
+import VerifyEmailButton from "../Buttons/VerifyEmailButton";
+import BackButton from "../Buttons/BackButton";
 import Alerts from "../Alert/Alerts";
 export default function VerifyEmail() {
   const [

@@ -1,11 +1,12 @@
 import React from "react";
 import ForgetPassword from "../components/User/ForgetPassword";
+import ResetPassword from "../components/User/ResetPassword";
 import { AppBar, Box } from "@mui/material";
 import ForgotImg from "../Assets/user/ForgotImg.jpg";
 import Footer from "../components/Footer";
 import useScreenWidth from "../Hooks/useScreenWidth";
 import AppsBar from "../TopBar/AppBar";
-export default function Forgot() {
+export default function Reset() {
   const [screenWidth] = useScreenWidth();
   return (
     <div>
@@ -23,8 +24,8 @@ export default function Forgot() {
           <Box sx={{ width: "40%" }}>
             <img src={ForgotImg} alt="" style={{ width: "100%" }} />
           </Box>
-          <Box sx={{ width: "50%",  }}>
-            <ForgetPassword />
+          <Box sx={{ width: "50%" }}>
+            <ResetPassword />
           </Box>
         </Box>
       ) : (
@@ -37,11 +38,8 @@ export default function Forgot() {
             width: "90%",
           }}
         >
-          {/* <Box sx={{ width: "100%" }}>
-            <img src={ForgotImg} alt="" style={{ width: "100%" }} />
-          </Box> */}
           <Box sx={{ width: "100%" }}>
-            <ForgetPassword />
+            <ResetPassword />
           </Box>
         </Box>
       )}

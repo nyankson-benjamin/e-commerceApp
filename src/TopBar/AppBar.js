@@ -60,7 +60,15 @@ export default function AppsBar({ ItemCategory, search, handleChange }) {
 
   return (
     <Stack>
-      <AppBar position="static" sx={{ background: "#003F62", width: "100%" }}>
+      <AppBar
+        position="static"
+        sx={{
+          background: "#ffc801",
+          width: "100%",
+          color: "black",
+          
+        }}
+      >
         <Toolbar>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <IconButton

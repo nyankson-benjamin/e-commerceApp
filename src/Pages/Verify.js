@@ -1,12 +1,13 @@
 import React from "react";
-import ForgetPassword from "../components/User/ForgetPassword";
-import { AppBar, Box } from "@mui/material";
-import ForgotImg from "../Assets/user/ForgotImg.jpg";
-import Footer from "../components/Footer";
-import useScreenWidth from "../Hooks/useScreenWidth";
 import AppsBar from "../TopBar/AppBar";
-export default function Forgot() {
+import useScreenWidth from "../Hooks/useScreenWidth";
+import signupImg from "../Assets/user/signup.jpg";
+import confirmImg from "../Assets/user/confirm.jpg";
+import { Box } from "@mui/material";
+import VerifyEmail from "../components/User/VerifyEmail";
+export default function Verify() {
   const [screenWidth] = useScreenWidth();
+
   return (
     <div>
       <AppsBar />
@@ -21,10 +22,10 @@ export default function Forgot() {
           }}
         >
           <Box sx={{ width: "40%" }}>
-            <img src={ForgotImg} alt="" style={{ width: "100%" }} />
+            <img src={confirmImg} alt="" style={{ width: "100%" }} />
           </Box>
-          <Box sx={{ width: "50%",  }}>
-            <ForgetPassword />
+          <Box sx={{ width: "50%" }}>
+            <VerifyEmail />
           </Box>
         </Box>
       ) : (
@@ -37,12 +38,7 @@ export default function Forgot() {
             width: "90%",
           }}
         >
-          {/* <Box sx={{ width: "100%" }}>
-            <img src={ForgotImg} alt="" style={{ width: "100%" }} />
-          </Box> */}
-          <Box sx={{ width: "100%" }}>
-            <ForgetPassword />
-          </Box>
+          <Box sx={{ width: "100%" }}><VerifyEmail /></Box>
         </Box>
       )}
     </div>
