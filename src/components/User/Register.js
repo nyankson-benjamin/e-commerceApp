@@ -14,11 +14,20 @@ import {
 import SignupButton from "../../CardSlider/Buttons/SignupButton";
 import useRegister from "../../Hooks/useRegister";
 import { Link } from "react-router-dom";
+import Alerts from "../Alert/Alerts";
 export default function Register() {
-  const [handleSubmit, handleChange, disable, country, handleCountry] =
-    useRegister();
+  const [
+    handleSubmit,
+    handleChange,
+    disable,
+    country,
+    handleCountry,
+    alert,
+    handleCloseAlert,
+  ] = useRegister();
   return (
     <FormControl sx={{ width: "80%" }}>
+      <Alerts alert={alert} handleCloseAlert={handleCloseAlert} />
       <h3>Create an Account</h3>
       {signUp.map((input) => (
         <Box sx={{ textAlign: "left", mt: 2, mb: 1 }} key={input.id}>

@@ -12,6 +12,11 @@ export default function useRegister() {
   const [confirmPass, setConfirmpass] = useState("");
   const [disable, setDisable] = useState(false);
   const [country, setCountry] = useState("");
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
   const [users] = useUsers();
   const navigate = useNavigate();
   const user = users?.find((user) => user.email === email);
@@ -37,17 +42,26 @@ export default function useRegister() {
 
   const handleSubmit = async () => {
     if (user && user.email === email) {
-      alert("Email already exist");
+      setAlert({
+        open: true,
+        message: "Email already exist",
+        severity: "error",
+      });
     } else {
       try {
         setDisable(true);
         const response = await API.post("/Users", { ...data });
         setDisable(false);
         console.log(response);
-        alert(`Your verication code is: ${otp}`);
+        // alert(`Your verication code is: ${otp}`);
+        setAlert({
+          open: true,
+          message: `Your verication code is: ${otp}`,
+          severity: "success",
+        });
         setTimeout(() => {
           navigate("/confirm");
-        }, 2000);
+        }, 5000);
       } catch (error) {}
     }
   };
@@ -102,9 +116,26 @@ export default function useRegister() {
     data.confirmPass,
   ]);
 
-  useEffect(() => {
-    console.log(country);
-  }, []);
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
 
-  return [handleSubmit, handleChange, disable, country, handleCountry];
+    // setOpenAlert(false);
+    setAlert({
+      open: false,
+      message: "",
+      severity: "",
+    });
+  };
+
+  return [
+    handleSubmit,
+    handleChange,
+    disable,
+    country,
+    handleCountry,
+    alert,
+    handleCloseAlert,
+  ];
 }

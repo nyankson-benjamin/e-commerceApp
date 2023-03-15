@@ -19,6 +19,7 @@ export default function Alerts({ alert, handleCloseAlert }) {
         open={alert.open}
         autoHideDuration={6000}
         onClose={handleCloseAlert}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert
           onClose={handleCloseAlert}
