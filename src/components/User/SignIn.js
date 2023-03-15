@@ -83,6 +83,9 @@ function SignIn() {
       <p>
         Dont have and account? Signup<Link to="/signup"> here</Link>
       </p>
+      <p>
+        Forgot password? Reset<Link to="/reset"> here</Link>
+      </p>
     </FormControl>
   );
 }
