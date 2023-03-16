@@ -10,7 +10,7 @@ import {
 import EmailIcon from "@mui/icons-material/Email";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { Link } from "react-router-dom";
-import LoginButton from "../../CardSlider/Buttons/LoginButton";
+import LoginButton from "../Buttons/LoginButton";
 import useLogin from "../../Hooks/useLogin";
 import Alerts from "../Alert/Alerts";
 function SignIn() {
@@ -84,7 +84,7 @@ function SignIn() {
         Dont have and account? Signup<Link to="/signup"> here</Link>
       </p>
       <p>
-        Forgot password? Reset<Link to="/reset"> here</Link>
+        Forgot password? Reset<Link to="/forgot"> here</Link>
       </p>
     </FormControl>
   );

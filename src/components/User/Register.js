@@ -11,7 +11,7 @@ import {
   MenuItem,
   Button,
 } from "@mui/material";
-import SignupButton from "../../CardSlider/Buttons/SignupButton";
+import SignupButton from "../Buttons/SignupButton";
 import useRegister from "../../Hooks/useRegister";
 import { Link } from "react-router-dom";
 import Alerts from "../Alert/Alerts";
