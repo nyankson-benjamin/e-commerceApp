@@ -17,8 +17,9 @@ import BuyProduct from "./Products/BuyProduct";
 import Cart from "./components/Cart/Cart";
 import Buy from "./components/Cart/Buy";
 import Signup from "./Pages/Signup";
-import VerifyEmail from "./components/User/VerifyEmail";
-import Reset from "./Pages/Forgot";
+import Forgot from "./Pages/Forgot";
+import Reset from "./Pages/Reset";
+import Verify from "./Pages/Verify";
 function App() {
   return (
     <div className="App">
@@ -40,8 +41,10 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/cartItem/buy/:id" element={<Buy />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/confirm" element={<VerifyEmail />} />
-        <Route path="/forgot" element={<Reset />} />
+        {/* <Route path="/confirm" element={<VerifyEmail />} /> */}
+        <Route path="/confirm" element={<Verify />} />
+        <Route path="/forgot" element={<Forgot />} />
+        <Route path="/reset" element={<Reset />} />
       </Routes>
     </div>
   );
