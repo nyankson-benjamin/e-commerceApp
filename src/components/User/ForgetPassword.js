@@ -25,9 +25,9 @@ export default function ForgetPassword() {
   const handleEmail = (event) => {
     setEmail(event.target.value);
   };
-
+  const reg = /^\S+@\S+\.\S+$/;
   useEffect(() => {
-    if (email === "") {
+    if (!email.match(reg)) {
       setDisable(true);
     } else {
       setDisable(false);

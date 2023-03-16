@@ -21,72 +21,81 @@ function SignIn() {
     disable,
     handleEmail,
     handlePassword,
-    alert,
+    checkCredential,
+    handleLogOut,
+    alerts,
     handleCloseAlert,
   ] = useLogin();
+  // const alerts = {
+  //   open: true,
+  //   message: "hello",
+  //   severity: "info",
+  // };
   return (
-    <FormControl sx={{ width: "70%", mt: "100px" }}>
-      {/* <Alerts alert={alert} /> */}
-      <h3>Log in to your account</h3>
-      <FormLabel
-        sx={{ textAlign: "left", mt: 2, mb: 1, fontWeight: "bold" }}
-        htmlFor="email"
-      >
-        Email
-      </FormLabel>
+    <Box>
+      <Alerts alert={alerts} handleCloseAlert={handleCloseAlert} />
+      <FormControl sx={{ width: "70%", mt: "100px" }}>
+        <h3>Log in to your account</h3>
+        <FormLabel
+          sx={{ textAlign: "left", mt: 2, mb: 1, fontWeight: "bold" }}
+          htmlFor="email"
+        >
+          Email
+        </FormLabel>
 
-      <TextField
-        fullWidth
-        id="email"
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={handleEmail}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <EmailIcon />
-            </InputAdornment>
-          ),
+        <TextField
+          fullWidth
+          id="email"
+          type="email"
+          placeholder="Enter Email"
+          value={email}
+          onChange={handleEmail}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <EmailIcon />
+              </InputAdornment>
+            ),
 
-          inputProps: {},
-        }}
-      />
+            inputProps: {},
+          }}
+        />
 
-      <FormLabel
-        sx={{ textAlign: "left", mt: 2, mb: 1, fontWeight: "bold" }}
-        htmlFor="password"
-      >
-        Password
-      </FormLabel>
+        <FormLabel
+          sx={{ textAlign: "left", mt: 2, mb: 1, fontWeight: "bold" }}
+          htmlFor="password"
+        >
+          Password
+        </FormLabel>
 
-      <TextField
-        fullWidth
-        type="password"
-        id="password"
-        value={password}
-        onChange={handlePassword}
-        placeholder="Password"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <LockOpenIcon />
-            </InputAdornment>
-          ),
+        <TextField
+          fullWidth
+          type="password"
+          id="password"
+          value={password}
+          onChange={handlePassword}
+          placeholder="Enter Password"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <LockOpenIcon />
+              </InputAdornment>
+            ),
 
-          inputProps: {},
-        }}
-      />
-      <br />
-      <LoginButton disable={disable} handleSubmit={handleSubmit} />
+            inputProps: {},
+          }}
+        />
+        <br />
+        <LoginButton disable={disable} handleSubmit={handleSubmit} />
 
-      <p>
-        Dont have and account? Signup<Link to="/signup"> here</Link>
-      </p>
-      <p>
-        Forgot password? Reset<Link to="/forgot"> here</Link>
-      </p>
-    </FormControl>
+        <p>
+          Dont have and account? Signup<Link to="/signup"> here</Link>
+        </p>
+        <p>
+          Forgot password? Reset<Link to="/forgot"> here</Link>
+        </p>
+      </FormControl>
+    </Box>
   );
 }
 

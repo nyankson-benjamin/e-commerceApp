@@ -9,7 +9,6 @@ export default function useVerifyOtp() {
   const [hasErrored, setHasErrored] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [users] = useUsers();
-  const [code, setCode] = useState();
 
   const [alerts, setAlerts] = useState({
     open: false,
@@ -60,39 +59,39 @@ export default function useVerifyOtp() {
   }
   const user = users?.find((user) => user.otp === otp);
 
-  useEffect(() => {
-    if (user) {
-      setCode(user.otp);
-    }
-  }, [user]);
+  const code = localStorage.getItem("code");
 
   const handleSubmit = async (event) => {
-    if (user) {
-      // console.log(user);
-      if (otp === code) {
-        // alert("verification successfull");
-        setAlerts({
-          open: true,
-          message: "verification successfull",
-          severity: "success",
-        });
-        const data = { isVerified: true, otp: "" };
-        await API.patch("Users/" + user.id, { ...data });
-        setCode();
-        setTimeout(() => {
-          navigate("/login");
-        }, 6000);
-      } else if (code.length !== 4) {
-        setAlerts({
-          open: true,
-          message: "Invalid verification code. PLease login first",
-          severity: "error",
-        });
+    if (!code) {
+      setAlerts({
+        open: true,
+        message: "Please login first",
+        severity: "error",
+      });
+      setTimeout(() => {
+        navigate("/signup");
+      }, 3000);
+    } else if (code && otp !== code) {
+      setAlerts({
+        open: true,
+        message: "Invalid verification code.",
+        severity: "error",
+      });
 
-        setTimeout(() => {
-          navigate("/signup");
-        }, 3000);
-      }
+      setOTP("");
+      hasErrored(true);
+    } else if (otp === code) {
+      setAlerts({
+        open: true,
+        message: "verification successfull",
+        severity: "success",
+      });
+      const data = { isVerified: true, otp: "" };
+      await API.patch("Users/" + user.id, { ...data });
+      localStorage.removeItem("code");
+      setTimeout(() => {
+        navigate("/login");
+      }, 6000);
     }
   };
 

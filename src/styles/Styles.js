@@ -34,7 +34,9 @@ export const bottomBarStyle = {
 
 export const navLinkStyle = {
   // backgroundColor: "red",
-  fontSize: "10px",
+  fontSize: "15px",
+  textTransform: "Capitalize",
+  fontWeight: "bold",
 };
 
 export const leftBarStyle = {

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function useLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [disable, setDisable] = useState(false);
+  const [disable, setDisable] = useState(true);
   const navigate = useNavigate();
   const [users] = useUsers();
   const [alerts, setAlerts] = useState({
@@ -12,25 +12,35 @@ export default function useLogin() {
     message: "",
     severity: "",
   });
+  const reg = /^\S+@\S+\.\S+$/;
 
   const handleEmail = (event) => {
     setEmail(event.target.value);
   };
 
+  useEffect(() => {
+    if (!email.match(reg) || password === "") {
+      setDisable(true);
+    } else {
+      setDisable(false);
+    }
+  }, [email, reg, password]);
   const handlePassword = (event) => {
     setPassword(event.target.value);
   };
-  //   useEffect(() => {
-  //     if (password === "" || email === "") {
-  //       setDisable(true);
-  //     } else setDisable(false);
-  //   }, [password, email]);
+
   const user = users?.find((user) => user.email === email);
 
   const handleSubmit = () => {
     const userIsLoggedin = checkCredential(email, password);
-    if (user && user.isVerified === false) {
-      // alert("hfhfhfh");
+
+    if (user && user.email !== email) {
+      setAlerts({
+        open: true,
+        message: "Email not found",
+        severity: "error",
+      });
+    } else if (user && user.isVerified === false) {
       setAlerts({
         open: true,
         message: "Please confirm your email first",
@@ -45,7 +55,6 @@ export default function useLogin() {
         message: "Invalid credentials supplied",
         severity: "error",
       });
-      console.log("error");
     } else {
       console.log(user);
       localStorage.setItem("isLoggedIn", true);

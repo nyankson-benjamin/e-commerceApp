@@ -60,7 +60,13 @@ function Mobile({ handleLogOut }) {
         <Tooltip title="Open settings">
           <Button
             onClick={(event) => setCategory(event.currentTarget)}
-            sx={{ p: 0, ml: 3 }}
+            sx={{
+              p: 0,
+              ml: 3,
+              textTransform: "Capitalize",
+              fontWeight: "bold",
+              fontSize: "15px",
+            }}
             color="inherit"
             endIcon={<KeyboardArrowDownIcon />}
           >

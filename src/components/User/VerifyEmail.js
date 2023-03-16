@@ -51,7 +51,7 @@ export default function VerifyEmail() {
         focusStyle={{ border: "2px solid #1F4EB4", outline: "none" }}
       />
       <br />
-      <VerifyEmailButton handleSubmit={handleSubmit} />
+      <VerifyEmailButton handleSubmit={handleSubmit} disable={disable} />
       <BackButton />
     </div>
   );
