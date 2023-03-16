@@ -66,6 +66,7 @@ export default function AppsBar({ ItemCategory, search, handleChange }) {
           background: "#ffc801",
           width: "100%",
           color: "black",
+          textTransform:"capitalize"
           
         }}
       >
