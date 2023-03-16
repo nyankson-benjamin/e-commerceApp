@@ -30,7 +30,7 @@ export default function Register() {
       <Alerts alert={alert} handleCloseAlert={handleCloseAlert} />
       <h3>Create an Account</h3>
       {signUp.map((input) => (
-        <Box sx={{ textAlign: "left", mt: 2, mb: 1 }} key={input.id}>
+        <Box sx={{ textAlign: "left", mt: 0, mb: 1 }} key={input.id}>
           <FormLabel
             htmlFor={input.Placeholder}
             sx={{ textAlign: "left", mt: 2, mb: 1, fontWeight: "bold" }}
@@ -62,9 +62,15 @@ export default function Register() {
           />
         </Box>
       ))}
-      <br />
+      
 
       <Box sx={{ textAlign: "left" }}>
+      <FormLabel
+            htmlFor=''
+            sx={{ textAlign: "left", mt: 2, mb: 1, fontWeight: "bold" }}
+          >
+           Country
+          </FormLabel>
         <TextField
           select
           fullWidth
