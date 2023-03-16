@@ -23,7 +23,7 @@ export default function useRegister() {
   var minm = 1000;
   var maxm = 9999;
   const otp = (Math.floor(Math.random() * (maxm - minm + 1)) + minm).toString();
-
+  const reg = /^\S+@\S+\.\S+$/;
   const handleCountry = (event) => {
     setCountry(event.target.value);
   };
@@ -59,6 +59,7 @@ export default function useRegister() {
           message: `Your verication code is: ${otp}`,
           severity: "success",
         });
+        localStorage.setItem("code", otp);
         setTimeout(() => {
           navigate("/confirm");
         }, 5000);
@@ -99,8 +100,11 @@ export default function useRegister() {
       data.email === "" ||
       data.contact === "" ||
       data.password === "" ||
-      data.confirmPass === ""
+      data.confirmPass === "" ||
+      data.country === ""
     ) {
+      setDisable(true);
+    } else if (!data.email.match(reg)) {
       setDisable(true);
     } else if (data.password !== data.confirmPass) {
       setDisable(true);
@@ -114,6 +118,7 @@ export default function useRegister() {
     data.contact,
     data.password,
     data.confirmPass,
+    data.country,
   ]);
 
   const handleCloseAlert = (event, reason) => {
