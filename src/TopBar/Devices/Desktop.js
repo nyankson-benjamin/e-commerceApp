@@ -38,7 +38,13 @@ function Desktop({ search, handleChange, handleLogOut, ItemCategory }) {
 
   const user = users?.find((user) => user.id === Number(id));
   return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        textTransform: "Capitalize",
+      }}
+    >
       <Typography
         variant="h6"
         component="div"
@@ -77,7 +83,7 @@ function Desktop({ search, handleChange, handleLogOut, ItemCategory }) {
           <Tooltip title="Categories">
             <Button
               onClick={(event) => setCategory(event.currentTarget)}
-              sx={{ p: 0 }}
+              sx={{ p: 0, textTransform: "Capitalize", fontWeight: "bold", fontSize:'15px' }}
               color="inherit"
               endIcon={<KeyboardArrowDownIcon />}
             >
