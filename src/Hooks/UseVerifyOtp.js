@@ -65,7 +65,7 @@ export default function useVerifyOtp() {
     if (!code) {
       setAlerts({
         open: true,
-        message: "Please login first",
+        message: "Please register first",
         severity: "error",
       });
       setTimeout(() => {
