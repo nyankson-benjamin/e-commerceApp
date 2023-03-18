@@ -1,63 +1,55 @@
 {
   "Cart": [],
-  "Users": [
-    {
-      "fname": "Benjamin",
-      "lname": "1111",
-      "email": "anokyepatience4@gmail.com",
-      "contact": "1111",
-      "password": "1111",
-      "confirmPass": "1111",
-      "otp": "",
-      "country": "Antarctica",
-      "isVerified": true,
-      "id": 1
-    },
-    {
-      "fname": "Benjamin",
-      "lname": "ee",
-      "email": "benjamin.nyankson@amalitech.com",
-      "contact": "11111",
-      "password": "1111",
-      "confirmPass": "1111",
-      "otp": "",
-      "country": "Argentina",
-      "isVerified": true,
-      "id": 2
-    },
-    {
-      "fname": "Benjamin",
-      "lname": "ee",
-      "email": "benjamin.nyankson@amalitech.comdd",
-      "contact": "11111",
-      "password": "11",
-      "confirmPass": "11",
-      "otp": "8472",
-      "country": "Austria",
-      "isVerified": false,
-      "id": 3
-    },
-    {
-      "fname": "Benjamin",
-      "lname": "ee",
-      "email": "benjamin.nyankson@amalitech.coms",
-      "contact": "1111",
-      "password": "1111",
-      "confirmPass": "1111",
-      "otp": "",
-      "country": "Alland Islands",
-      "isVerified": true,
-      "id": 4
-    }
-  ],
+  "Users": [],
   "Sales": [
     {
-      "price": 1436.79,
+      "price": 737.72,
+      "item": "iPhone X",
+      "image": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+      "quantity": 1,
       "id": 1
     },
     {
       "price": 737.72,
+      "item": "iPhone X",
+      "image": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+      "quantity": 1,
       "id": 2
+    },
+    {
+      "price": 737.72,
+      "item": "iPhone X",
+      "image": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+      "quantity": 1,
+      "id": 3
+    },
+    {
+      "price": 1055.9,
+      "item": "Samsung Universe 9",
+      "image": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "id": 4
+    },
+    {
+      "price": 737.72,
+      "item": "iPhone X",
+      "image": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+      "quantity": 1,
+      "id": 5
+    },
+    {
+      "price": 1055.9,
+      "item": "Samsung Universe 9",
+      "image": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+      "quantity": 1,
+      "id": 6
+    },
+    {
+      "price": 737.72,
+      "item": "iPhone X",
+      "image": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+      "quantity": 1,
+      "id": 7
     }
   ]
 }

@@ -71,7 +71,7 @@ export default function AddToCart({ product }) {
           severity: "success",
         });
 
-        // setDisable(true);
+        setDisable(true);
         setTimeout(() => {
           navigate("/cart");
         }, 6000);
@@ -114,16 +114,10 @@ export default function AddToCart({ product }) {
         />
       )}
 
-      <Alert
-        // openAlert={alert.open}
-        // message={alert.message}
-        // severity={alert.severity}
-        alert={alert}
-        handleCloseAlert={handleCloseAlert}
-      />
+      <Alert alert={alert} handleCloseAlert={handleCloseAlert} />
 
       <h2>ADD TO CART</h2>
-      {screenWidth < 498 ? (
+      {screenWidth < 600 ? (
         <Box>
           {" "}
           <Box
@@ -304,6 +298,7 @@ export default function AddToCart({ product }) {
               variant="contained"
               onClick={handleAddToCart}
               disabled={disable}
+              disableElevation
             >
               Add
             </Button>
@@ -313,6 +308,7 @@ export default function AddToCart({ product }) {
               variant="contained"
               onClick={() => navigate("/cart")}
               startIcon={<AddShoppingCartIcon />}
+              disableElevation
             >
               My cart
             </Button>

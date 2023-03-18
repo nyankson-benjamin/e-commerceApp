@@ -11,7 +11,7 @@ function ProductDetail({ product }) {
   const navigate = useNavigate();
   return (
     <Box>
-      {screenWidth < 498 ? (
+      {screenWidth < 600 ? (
         <Box
           sx={{
             display: "flex",
@@ -19,7 +19,7 @@ function ProductDetail({ product }) {
             // alignItems: "center",
             justifyContent: "center",
             width: "100%",
-            border: "2px solid black",
+
             height: "100vh",
           }}
         >

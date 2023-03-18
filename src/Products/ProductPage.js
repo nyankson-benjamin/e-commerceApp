@@ -27,19 +27,6 @@ function ProductPage() {
     delay: 2000, // Delay between transitions (in ms)
     disableOnInteraction: false, // Enable/disable autoplay on user interaction
   };
-  // useEffect(() => {
-  //   const fetch = async () => {
-  //     try {
-  //       setLoading(true);
-  //       const related = await DUMMy_API.get(
-  //         `/products/category/${product.category}`
-  //       );
-  //       setLoading(false);
-  //       setRelated(related?.data?.products);
-  //     } catch (error) {}
-  //   };
-  //   fetch();
-  // });
 
   useEffect(() => {
     if (product) {
@@ -48,9 +35,9 @@ function ProductPage() {
       );
     }
   }, [, data, product]);
-  // console.log(related);
+
   return (
-    <div style={{ height: "100vh" }}>
+    <div style={{}}>
       <AppsBar />
       {product && (
         <Box
@@ -64,7 +51,7 @@ function ProductPage() {
         >
           <Box
             sx={{
-              height: "200px",
+              // height: "200px",
               display: "flex",
               justifyContent: "center",
               // flexDirection: "column",
@@ -72,16 +59,11 @@ function ProductPage() {
           >
             <ProductDetail product={product} />
           </Box>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
+
           <Box>
             <h3>Related Products</h3>
 
-            {screenWidth > 498 ? (
+            {screenWidth > 600 ? (
               <Swiper
                 modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
                 spaceBetween={20}

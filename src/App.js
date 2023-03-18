@@ -20,6 +20,7 @@ import Signup from "./Pages/Signup";
 import Forgot from "./Pages/Forgot";
 import Reset from "./Pages/Reset";
 import Verify from "./Pages/Verify";
+import DashBoardContainer from "./components/DashBoard/DashBoardContainer";
 function App() {
   return (
     <div className="App">
@@ -45,6 +46,7 @@ function App() {
         <Route path="/confirm" element={<Verify />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/reset" element={<Reset />} />
+        <Route path="/dashboard" element={<DashBoardContainer />} />
       </Routes>
     </div>
   );
