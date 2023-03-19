@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { dashBoardMenu } from "../../Constants/dashboardMenu";
 import Dashboard from "./Components/Dashboard";
+import { Home } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 export default function Menu() {
+  const navigate = useNavigate();
   const menuStyle = {
     textAlign: "left",
     fontSize: "16px",
@@ -20,11 +23,29 @@ export default function Menu() {
     },
   };
   const [component, setComponent] = useState(<Dashboard />);
-  const clickStyle = { bgcolor: "white" };
+  const [isloading, setIsLoading] = useState(false);
   const [style, setStyle] = useState(menuStyle);
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <Box sx={{ height: "100vh", width: "15%", bgcolor: "#364153", m: 0 }}>
+        <Button
+          startIcon={<Home />}
+          sx={{
+            mt: 3,
+            textAlign: "left",
+            fontSize: "16px",
+            color: "white",
+            textTransform: "Capitalize",
+            "&:hover": {
+              bgcolor: "#ffc801",
+              //   letterSpacing: 3,
+              ml: 1,
+            },
+          }}
+          onClick={() => navigate("/")}
+        >
+          Home
+        </Button>
         {dashBoardMenu &&
           dashBoardMenu.map((item, index) => (
             <Box sx={{ p: 3 }} key={index}>
@@ -33,7 +54,9 @@ export default function Menu() {
                 sx={style}
                 startIcon={item.icon}
                 onClick={() => {
+                  setIsLoading(true);
                   setComponent(item.component);
+                  setIsLoading(false);
                 }}
               >
                 {item.title}

@@ -57,49 +57,9 @@ export default function AppsBar({ ItemCategory, search, handleChange }) {
 
   //   console.log(user);
   // }, [isLoggedIn, user]);
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const intervalRef = useRef(null);
-  const [loading, setLoading] = useState(false);
 
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
-  //   }, 1000);
-
-  //   return () => {
-  //     clearInterval(intervalId);
-  //   };
-  // }, []);
-
-  const formatTime = (time) => {
-    const hours = Math.floor(time / 3600);
-    const minutes = Math.floor((time % 3600) / 60);
-    const seconds = time % 60;
-    return `${seconds.toString().padStart(2)}`;
-  };
-
-  useEffect(() => {
-    const fetch = async () => {
-      setLoading(true);
-      const res = await API.get("/Cart");
-      setLoading(false);
-      console.log(res);
-    };
-    fetch();
-  }, []);
-
-  useEffect(() => {
-    if (loading === true) {
-      intervalRef.current = setInterval(() => {
-        setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
-      }, 1000);
-    } else {
-      setTimeout(() => {
-        clearInterval(intervalRef.current);
-      }, 3000);
-    }
-  });
-
+ 
+  
   return (
     <Stack>
       <AppBar
@@ -141,7 +101,7 @@ export default function AppsBar({ ItemCategory, search, handleChange }) {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 {/* MILES */}
               </Typography>
-              <p>{formatTime(elapsedTime)}</p>
+             
               <Desktop
                 search={search}
                 handleChange={handleChange}

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function useCart() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
+  const [salesData, setSalesData] = useState();
   const [alerts, setAlerts] = useState({
     open: false,
     message: "",
@@ -16,7 +17,6 @@ export default function useCart() {
         setLoading(true);
         const response = await API.get("/Cart");
         setLoading(false);
-        // console.log(response?.data);
         setData(response?.data);
       } catch (error) {}
     };
@@ -36,25 +36,61 @@ export default function useCart() {
     });
   };
 
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const response = await API.get("/Sales");
+        setSalesData(response?.data);
+      } catch (error) {}
+    };
+    fetch();
+  }, []);
+
   const handleBuy = async (id, price, item, image, quantity) => {
-    const data = { price, item, image, quantity };
+    const buyDate = new Date();
+    const year = buyDate.getFullYear();
+    const month = buyDate.getMonth() + 1;
+    const day = buyDate.getDate();
+    const date = `${day}-${month}-${year}`;
 
-    try {
-      await API.post("/Sales", { ...data });
-      setAlerts({
-        open: true,
-        message: "You have successfully buy the product",
-        severity: "info",
-      });
+    const sales = { price, item, image, quantity, date };
 
-      setTimeout(() => {
-        navigate("/cart");
-      }, 5000);
+    const salesItem = salesData?.find((items) => items.item === item);
 
+    if (salesItem) {
+      const price1 = salesItem.price + price;
+      const item1 = salesItem.item;
+      const image1 = salesItem.image;
+      const quantity = salesItem.quantity;
+      const existData = {
+        price: price1,
+        item: item1,
+        image: image1,
+        quantity: quantity,
+        date: date,
+      };
+      await API.put(`/Sales/${salesItem.id}`, { ...existData });
       await API.delete("/Cart/" + id);
       const newCart = data?.filter((cart) => cart.id !== id);
       setData(newCart);
-    } catch (error) {}
+    } else {
+      try {
+        await API.post("/Sales", { ...sales });
+        setAlerts({
+          open: true,
+          message: "You have successfully buy the product",
+          severity: "info",
+        });
+
+        setTimeout(() => {
+          navigate("/cart");
+        }, 5000);
+
+        await API.delete("/Cart/" + id);
+        const newCart = data?.filter((cart) => cart.id !== id);
+        setData(newCart);
+      } catch (error) {}
+    }
   };
 
   const handleCloseAlert = (event, reason) => {
