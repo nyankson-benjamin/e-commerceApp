@@ -69,7 +69,20 @@ export default function useCart() {
         quantity: quantity,
         date: date,
       };
-      await API.put(`/Sales/${salesItem.id}`, { ...existData });
+      try {
+        await API.put(`/Sales/${salesItem.id}`, { ...existData });
+
+        setAlerts({
+          open: true,
+          message: "You have successfully buy the product",
+          severity: "info",
+        });
+
+        setTimeout(() => {
+          navigate("/cart");
+        }, 5000);
+      } catch (error) {}
+
       await API.delete("/Cart/" + id);
       const newCart = data?.filter((cart) => cart.id !== id);
       setData(newCart);
