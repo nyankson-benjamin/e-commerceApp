@@ -42,7 +42,11 @@ function Chart() {
   return (
     <div>
       Chart
-      <Bar data={data}></Bar>
+      {sales?.length <= 0 ? (
+        <p>No sales have been made</p>
+      ) : (
+        <Bar data={data}></Bar>
+      )}
     </div>
   );
 }
