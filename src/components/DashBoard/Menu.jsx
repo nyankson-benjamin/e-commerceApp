@@ -23,8 +23,7 @@ export default function Menu() {
     },
   };
   const [component, setComponent] = useState(<Dashboard />);
-  const [isloading, setIsLoading] = useState(false);
-  const [style, setStyle] = useState(menuStyle);
+
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <Box sx={{ height: "100vh", width: "15%", bgcolor: "#364153", m: 0 }}>
@@ -51,12 +50,10 @@ export default function Menu() {
             <Box sx={{ p: 3 }} key={index}>
               <Button
                 variant="h5"
-                sx={style}
+                sx={menuStyle}
                 startIcon={item.icon}
                 onClick={() => {
-                  setIsLoading(true);
                   setComponent(item.component);
-                  setIsLoading(false);
                 }}
               >
                 {item.title}
