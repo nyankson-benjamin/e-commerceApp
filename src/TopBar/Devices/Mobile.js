@@ -131,10 +131,13 @@ function Mobile({ handleLogOut }) {
             </Typography>
           </MenuItem>
         ))}
-        {isLoggedIn ? (
-          <MenuItem onClick={handleCloseNavMenu}>
-            <LogoutIcon onClick={handleLogOut} />
-          </MenuItem>
+        {isLoggedIn && user ? (
+          <Box>
+            <MenuItem onClick={handleCloseNavMenu}>
+              <LogoutIcon onClick={handleLogOut} />
+            </MenuItem>
+            <MenuItem onClick={handleCloseNavMenu}>{user.fname}</MenuItem>
+          </Box>
         ) : (
           <MenuItem onClick={handleCloseNavMenu}>
             <PersonIcon onClick={() => navigate("/login")} />
