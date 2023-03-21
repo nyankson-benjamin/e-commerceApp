@@ -33,46 +33,43 @@ export default function useLogin() {
 
   const handleSubmit = () => {
     const userIsLoggedin = checkCredential(email, password);
+    try {
+      if (user && user.email !== email) {
+        setAlerts({
+          open: true,
+          message: "Email not found",
+          severity: "error",
+        });
+      } else if (user && user.isVerified === false) {
+        setAlerts({
+          open: true,
+          message: "Please confirm your email first",
+          severity: "info",
+        });
+        setTimeout(() => {
+          navigate("/confirm");
+        }, 3000);
+      } else if (!userIsLoggedin) {
+        setAlerts({
+          open: true,
+          message: "Invalid credentials supplied",
+          severity: "error",
+        });
+      } else {
+        console.log(user);
+        localStorage.setItem("isLoggedIn", true);
+        localStorage.setItem("id", user.id);
+        setAlerts({
+          open: true,
+          message: "Login success. Redirecting to homepage",
+          severity: "success",
+        });
 
-    if (user && user.email !== email) {
-      setAlerts({
-        open: true,
-        message: "Email not found",
-        severity: "error",
-      });
-    } else if (user && user.isVerified === false) {
-      setAlerts({
-        open: true,
-        message: "Please confirm your email first",
-        severity: "info",
-      });
-      setTimeout(() => {
-        navigate("/confirm");
-      }, 3000);
-    } else if (!userIsLoggedin) {
-      setAlerts({
-        open: true,
-        message: "Invalid credentials supplied",
-        severity: "error",
-      });
-    } else {
-      console.log(user);
-      localStorage.setItem("isLoggedIn", true);
-      localStorage.setItem("id", user.id);
-      setAlerts({
-        open: true,
-        message: "Login success. Redirecting to homepage",
-        severity: "success",
-      });
-      setTimeout(() => {
-        navigate("/products");
-      }, 2000);
-    }
-    // }
-    // } else {
-    //   alert("Invalid credentials supplied");
-    //   setIsLoggedIn(false);
-    // }
+        setTimeout(() => {
+          navigate("/products");
+        }, 2000);
+      }
+    } catch (error) {}
   };
 
   const checkCredential = (email, password) => {
@@ -115,5 +112,6 @@ export default function useLogin() {
     handleLogOut,
     alerts,
     handleCloseAlert,
+    user,
   ];
 }
