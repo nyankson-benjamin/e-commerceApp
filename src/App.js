@@ -22,6 +22,8 @@ import Reset from "./Pages/Reset";
 import Verify from "./Pages/Verify";
 import DashBoardContainer from "./components/DashBoard/DashBoardContainer";
 import Chart from "./components/Chart";
+import MyDashBoard from "./Pages/MyDashBoard";
+import ChangePassword from "./Pages/ChangePassword";
 function App() {
   return (
     <div className="App">
@@ -49,6 +51,8 @@ function App() {
         <Route path="/reset" element={<Reset />} />
         <Route path="/dashboard" element={<DashBoardContainer />} />
         <Route path="/chart" element={<Chart />} />
+        <Route path="/myDashBoard" element={<MyDashBoard />} />
+        <Route path="/changePassword" element={<ChangePassword />} />
       </Routes>
     </div>
   );
