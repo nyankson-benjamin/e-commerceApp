@@ -27,9 +27,12 @@ import useUsers from "../../Hooks/useUsers";
 import Searchitem from "../../components/Searchitem";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LockResetIcon from "@mui/icons-material/LockReset";
 
 function Desktop({ search, handleChange, handleLogOut, ItemCategory }) {
   const [category, setCategory] = useState(null);
+  const [dashBoarditem, setDashBoarditem] = useState(null);
   const navigate = useNavigate();
   const [users] = useUsers();
 
@@ -69,10 +72,65 @@ function Desktop({ search, handleChange, handleLogOut, ItemCategory }) {
           </Button>
         ))}
 
-        {isLoggedIn ? (
-          <IconButton onClick={handleLogOut} color="inherit" title="logout">
-            <LogoutIcon />
-          </IconButton>
+        {isLoggedIn && user ? (
+          <Box sx={{ display: "flex" }}>
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Categories">
+                <Button
+                  onClick={(event) => setDashBoarditem(event.currentTarget)}
+                  sx={{
+                    p: 0,
+                    textTransform: "Capitalize",
+                    fontWeight: "bold",
+                    fontSize: "15px",
+                  }}
+                  color="inherit"
+                  endIcon={<PersonIcon />}
+                >
+                  {user.fname}
+                </Button>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={dashBoarditem}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(dashBoarditem)}
+                onClose={() => setDashBoarditem(null)}
+              >
+                <MenuItem>
+                  <Button
+                    startIcon={<LockResetIcon />}
+                    onClick={() => navigate("/changePassword")}
+                  >
+                    Change password
+                  </Button>
+                </MenuItem>
+                <MenuItem>
+                  <Button
+                    startIcon={<AccountCircleIcon />}
+                    onClick={() => navigate("/myDashBoard")}
+                  >
+                    My account
+                  </Button>
+                </MenuItem>
+
+                <MenuItem>
+                  <Button startIcon={<LogoutIcon />} onClick={handleLogOut}>
+                    logout
+                  </Button>
+                </MenuItem>
+              </Menu>
+            </Box>
+          </Box>
         ) : (
           <IconButton onClick={() => navigate("/login")} color="inherit">
             <PersonIcon />
@@ -83,7 +141,12 @@ function Desktop({ search, handleChange, handleLogOut, ItemCategory }) {
           <Tooltip title="Categories">
             <Button
               onClick={(event) => setCategory(event.currentTarget)}
-              sx={{ p: 0, textTransform: "Capitalize", fontWeight: "bold", fontSize:'15px' }}
+              sx={{
+                p: 0,
+                textTransform: "Capitalize",
+                fontWeight: "bold",
+                fontSize: "15px",
+              }}
               color="inherit"
               endIcon={<KeyboardArrowDownIcon />}
             >
