@@ -75,8 +75,14 @@ export default function AddToCart({ product }) {
         setTimeout(() => {
           navigate("/cart");
         }, 6000);
-      } catch (error) {}
-      console.log(cartItem);
+      } catch (error) {
+        setAlert({
+          open: true,
+          message: error.message,
+          severity: "error",
+        });
+      }
+      // console.log(cartItem);
     }
   };
 
