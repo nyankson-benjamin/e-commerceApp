@@ -3,35 +3,22 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  Button,
   Stack,
   Box,
-  TextField,
-  Tooltip,
-  Menu,
-  MenuItem,
 } from "@mui/material";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
-import { useState, useEffect, useRef } from "react";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import MenuIcon from "@mui/icons-material/Menu";
+import { useState } from "react";
+
 import useScreenWidth from "../Hooks/useScreenWidth";
-import { page, categories } from "../Constants/constants";
-import { Link, useNavigate } from "react-router-dom";
-import { navLinkStyle } from "../styles/Styles";
-import CartLength from "../components/Cart/CartLength";
-import { Search } from "@mui/icons-material";
-import Searchitem from "../components/Searchitem";
-import PersonIcon from "@mui/icons-material/Person";
-import { API } from "../Services/api";
+import { useNavigate } from "react-router-dom";
+
 import useUsers from "../Hooks/useUsers";
 import useLogin from "../Hooks/useLogin";
 import Desktop from "./Devices/Desktop";
 import Mobile from "./Devices/Mobile";
 export default function AppsBar({ ItemCategory, search, handleChange }) {
   const [screenWidth] = useScreenWidth();
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [category, setCategory] = useState(null);
+
   const [users] = useUsers();
   const [
     handleSubmit,
@@ -49,17 +36,7 @@ export default function AppsBar({ ItemCategory, search, handleChange }) {
   const id = localStorage.getItem("id");
 
   const user = users?.find((user) => user.id === Number(id));
-  // useEffect(() => {
-  //   console.log(isLoggedIn);
-  //   console.log(typeof isLoggedIn);
-  //   console.log(id);
-  //   // console.log(typeof id);
 
-  //   console.log(user);
-  // }, [isLoggedIn, user]);
-
- 
-  
   return (
     <Stack>
       <AppBar
@@ -101,7 +78,7 @@ export default function AppsBar({ ItemCategory, search, handleChange }) {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 {/* MILES */}
               </Typography>
-             
+
               <Desktop
                 search={search}
                 handleChange={handleChange}
