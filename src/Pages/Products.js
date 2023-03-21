@@ -47,7 +47,7 @@ export default function Products() {
           .slice(startIndex, endIndex)
       );
     }
-  });
+  }, [data, startIndex, endIndex]);
   return (
     <div style={{ overflow: "scroll", height: "100%" }}>
       <AppsBar search={filt} handleChange={handleChange} />
