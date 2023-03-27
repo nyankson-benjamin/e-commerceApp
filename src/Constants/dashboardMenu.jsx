@@ -6,10 +6,11 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import MessageIcon from "@mui/icons-material/Message";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SettingsIcon from "@mui/icons-material/Settings";
+import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 
 import Dashboard from "../components/DashBoard/Components/Dashboard";
 import Analytics from "../components/DashBoard/Components/Analytics";
-import Invoices from "../components/DashBoard/Components/Invoices";
+import Invoices from "../components/DashBoard/Components/Users";
 import Notification from "../components/DashBoard/Components/Notification";
 import Settings from "../components/DashBoard/Components/Settings";
 import Calendar from "../components/DashBoard/Components/Calendar";
@@ -31,9 +32,9 @@ export const dashBoardMenu = [
   },
   {
     id: 3,
-    title: "Invoice",
+    title: "Users",
     component: <Invoices />,
-    icon: <ReceiptIcon />,
+    icon: <SupervisedUserCircleIcon />,
   },
   {
     id: 4,

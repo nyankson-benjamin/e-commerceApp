@@ -1,6 +1,35 @@
 {
   "Cart": [],
-  "Users": [],
+  "Users": [
+    {
+      "fname": "Kwesi",
+      "lname": "ee",
+      "email": "benjamin.nyankson@amalitech.com",
+      "contact": "1111",
+      "password": "11111111",
+      "confirmPass": "11111111",
+      "otp": "",
+      "country": "Alland Islands",
+      "isVerified": true,
+      "role": "admin",
+      "isAdmin": false,
+      "id": 1
+    },
+    {
+      "fname": "Benjamin",
+      "lname": "ee",
+      "email": "benjamin.nyankson@amalitech.com",
+      "contact": "1111",
+      "password": "11111111",
+      "confirmPass": "11111111",
+      "otp": "",
+      "country": "Alland Islands",
+      "isVerified": false,
+      "role": "user",
+      "isAdmin": false,
+      "id": 2
+    }
+  ],
   "Sales": [
     {
       "price": 737.72,

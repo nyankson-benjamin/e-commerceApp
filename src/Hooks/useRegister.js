@@ -38,6 +38,8 @@ export default function useRegister() {
     otp,
     country,
     isVerified: false,
+    role: "user",
+    isAdmin: false,
   };
 
   const handleSubmit = async () => {
