@@ -4,12 +4,23 @@ import SignIn from "../components/User/SignIn";
 import useScreenWidth from "../Hooks/useScreenWidth";
 import signupImg from "../Assets/user/signup.jpg";
 import { Box } from "@mui/material";
+import useLogin from "../Hooks/useLogin";
 export default function Login() {
   const [screenWidth] = useScreenWidth();
-
+  const [
+    handleSubmit,
+    email,
+    password,
+    disable,
+    handleEmail,
+    handlePassword,
+    handleLogOut,
+    alert,
+    handleCloseAlert,
+  ] = useLogin();
   return (
     <div>
-      <AppsBar />
+      <AppsBar handleLogOut={handleLogOut} />
       {screenWidth > 600 ? (
         <Box
           sx={{
@@ -24,7 +35,16 @@ export default function Login() {
             <img src={signupImg} alt="" style={{ width: "100%" }} />
           </Box>
           <Box sx={{ width: "50%" }}>
-            <SignIn />
+            <SignIn
+              handleCloseAlert={handleCloseAlert}
+              email={email}
+              handleEmail={handleEmail}
+              password={password}
+              handlePassword={handlePassword}
+              alert={alert}
+              disable={disable}
+              handleSubmit={handleSubmit}
+            />
           </Box>
         </Box>
       ) : (
@@ -38,7 +58,16 @@ export default function Login() {
           }}
         >
           <Box sx={{ width: "100%" }}>
-            <SignIn />
+            <SignIn
+              handleCloseAlert={handleCloseAlert}
+              email={email}
+              handleEmail={handleEmail}
+              password={password}
+              handlePassword={handlePassword}
+              alert={alert}
+              disable={disable}
+              handleSubmit={handleSubmit}
+            />
           </Box>
         </Box>
       )}

@@ -81,6 +81,7 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
   return (
     <AppBar position="static" sx={{ background: "#003F62", height: "100px" }}>
       <Container maxWidth="xl">

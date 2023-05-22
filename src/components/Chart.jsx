@@ -10,16 +10,16 @@ import {
 import { colorArray } from "../Constants/ColorArray";
 import { Bar, Line } from "react-chartjs-2";
 import useSales from "../Hooks/useSales";
-
+import { events } from "../DataBase/Events";
 function Chart() {
   const [sales] = useSales();
 
   const price = [];
   const price1 = [];
   const id = [];
-  sales?.forEach((element) => {
-    price1.push(element.price);
-    id.push(element.item);
+  events?.forEach((element) => {
+    price1.push(element.eventCount);
+    id.push(element.evntName);
   });
   const nums = [5, 2, 7, 3];
   price.push(nums);
@@ -29,23 +29,25 @@ function Chart() {
     labels: id,
     datasets: [
       {
-        label: "Sales numbers",
+        label: false,
         data: price1,
         // borderColor: "black",
         backgroundColor: colorArray,
         borderWidth: 1,
       },
     ],
+    style: {
+      width: "200px",
+    },
   };
   const options = {};
 
   return (
-    <div>
-      Chart
+    <div style={{ width: "80%", margin: "100px auto" }}>
       {sales?.length <= 0 ? (
         <p>No sales have been made</p>
       ) : (
-        <Bar data={data}></Bar>
+        <Bar data={data} style={{ width: "200px", height: "900px" }} />
       )}
     </div>
   );

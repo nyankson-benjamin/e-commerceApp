@@ -75,9 +75,9 @@ export default function Products() {
                   mt: "20px",
                 }}
               >
-                <Grid container spacing={3}>
+                <Grid container spacing={3} columns={12}>
                   {product?.map((product) => (
-                    <Grid key={product.id} item xs={12} md={12} lg={3}>
+                    <Grid key={product.id} item xs={12} sm={6} md={4} lg={3}>
                       <ProductCard product={product} isLoading={isLoading} />
                     </Grid>
                   ))}

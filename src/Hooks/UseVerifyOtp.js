@@ -32,6 +32,12 @@ export default function useVerifyOtp() {
     setOTP(value);
   }
 
+  useEffect(() => {
+    if (localStorage.getItem("userDetails")) {
+      navigate("/");
+    }
+  });
+
   function handleKeyDown(event) {
     if (event.keyCode === 8) {
       // Backspace key
@@ -62,36 +68,57 @@ export default function useVerifyOtp() {
   const code = localStorage.getItem("code");
 
   const handleSubmit = async (event) => {
-    if (!code) {
-      setAlerts({
-        open: true,
-        message: "Please register first",
-        severity: "error",
-      });
-      setTimeout(() => {
-        navigate("/signup");
-      }, 3000);
-    } else if (code && otp !== code) {
-      setAlerts({
-        open: true,
-        message: "Invalid verification code.",
-        severity: "error",
-      });
+    // if (!code) {
+    //   setAlerts({
+    //     open: true,
+    //     message: "Please register first",
+    //     severity: "error",
+    //   });
+    //   setTimeout(() => {
+    //     navigate("/signup");
+    //   }, 3000);
+    // } else if (code && otp !== code) {
+    //   setAlerts({
+    //     open: true,
+    //     message: "Invalid verification code.",
+    //     severity: "error",
+    //   });
 
-      setOTP("");
-      hasErrored(true);
-    } else if (otp === code) {
+    //   setOTP("");
+    //   hasErrored(true);
+    // } else if (otp === code) {
+    //   setAlerts({
+    //     open: true,
+    //     message: "verification successfull",
+    //     severity: "success",
+    //   });
+    //   const data = { isVerified: true, otp: "" };
+    //   await API.patch("Users/" + user.id, { ...data });
+    //   localStorage.removeItem("code");
+    //   setTimeout(() => {
+    //     navigate("/login");
+    //   }, 6000);
+    // }
+
+    try {
+      setDisable(true);
+      const data = { code: Number(otp) };
+      await API.post("/confirm", { ...data });
+      setDisable(false);
       setAlerts({
         open: true,
         message: "verification successfull",
         severity: "success",
       });
-      const data = { isVerified: true, otp: "" };
-      await API.patch("Users/" + user.id, { ...data });
-      localStorage.removeItem("code");
       setTimeout(() => {
         navigate("/login");
       }, 6000);
+    } catch (error) {
+      setAlerts({
+        open: true,
+        message: "Invalid verification code.",
+        severity: "error",
+      });
     }
   };
 

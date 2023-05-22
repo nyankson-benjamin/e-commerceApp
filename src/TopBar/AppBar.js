@@ -16,27 +16,16 @@ import useUsers from "../Hooks/useUsers";
 import useLogin from "../Hooks/useLogin";
 import Desktop from "./Devices/Desktop";
 import Mobile from "./Devices/Mobile";
-export default function AppsBar({ ItemCategory, search, handleChange }) {
+
+export default function AppsBar({
+  ItemCategory,
+  search,
+  handleChange,
+  handleLogOut,
+}) {
   const [screenWidth] = useScreenWidth();
 
-  const [users] = useUsers();
-  const [
-    handleSubmit,
-    email,
-    password,
-    disable,
-    handleEmail,
-    handlePassword,
-    checkCredential,
-    handleLogOut,
-  ] = useLogin();
   const navigate = useNavigate();
-
-  const isLoggedIn = Boolean(localStorage.getItem("isLoggedIn"));
-  const id = localStorage.getItem("id");
-
-  const user = users?.find((user) => user.id === Number(id));
-
   return (
     <Stack>
       <AppBar
