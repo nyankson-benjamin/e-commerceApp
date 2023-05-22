@@ -15,6 +15,7 @@ export default function ResetButton({ handleForgot, disable }) {
           textTransform: "capitalize",
           fontSize: "20px",
           borderRadius: "20px",
+          mt:2,
           "&:hover": {
             bgcolor: "#ffc801",
           },
