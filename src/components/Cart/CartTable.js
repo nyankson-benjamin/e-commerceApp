@@ -20,13 +20,15 @@ export default function CartTable({ data, cart, handleDelete }) {
   const [filt, setFilter] = useState("");
   const [screenWidth] = useScreenWidth();
   const navigate = useNavigate();
-
   const isLoggedIn = localStorage.getItem("isLoggedIn");
-  const totalAmount = [];
+  const user = JSON.parse(localStorage.getItem("userDetails"));
 
-  cart?.forEach((element) => {
-    totalAmount.push(element.totalPrice);
-  });
+  // const carts = user?.cart;
+  // const totalAmount = [];
+
+  // carts?.forEach((element) => {
+  //   totalAmount.push(element.totalPrice);
+  // });
 
   return (
     <div style={{ margin: "10px " }}>
@@ -56,11 +58,11 @@ export default function CartTable({ data, cart, handleDelete }) {
             </TableHead>
             {cart?.length >= 1 ? (
               <TableBody>
-                {cart?.map((cart) => (
-                  <TableRow key={cart.id}>
-                    <TableCell>{cart.id}</TableCell>
+                {cart?.map((cart, index) => (
+                  <TableRow key={cart._id}>
+                    <TableCell>{index}</TableCell>
                     <TableCell>
-                      <img src={cart.img_link} style={{ width: "30px" }} />
+                      <img src={cart.image} style={{ width: "30px" }} />
                     </TableCell>
                     <TableCell>{cart.item}</TableCell>
                     <TableCell>{cart.quantity}</TableCell>
@@ -73,7 +75,7 @@ export default function CartTable({ data, cart, handleDelete }) {
                           variant="contained"
                           onClick={() => {
                             if (isLoggedIn) {
-                              navigate(`/cartItem/buy/${cart.id}`);
+                              navigate(`/cartItem/buy/${cart._id}`);
                             } else {
                               navigate("/login");
                             }
@@ -81,7 +83,7 @@ export default function CartTable({ data, cart, handleDelete }) {
                         >
                           BUY
                         </Button>
-                        <IconButton onClick={() => handleDelete(cart.id)}>
+                        <IconButton onClick={() => handleDelete(cart._id, cart.item)}>
                           <DeleteIcon />
                         </IconButton>
                       </ButtonGroup>

@@ -9,12 +9,11 @@ export default function Buy() {
   const [data, loading, handleDelete, handleBuy, alerts, handleCloseAlert] =
     useCart();
 
-  const cartitem = data?.find((cart) => cart.id === Number(id));
-  useEffect(() => {
-    if (data) {
-      // console.log(data);
-    }
-  });
+  console.log(data);
+  const cartitem = data?.find((cart) => cart._id === (id));
+  if (cartitem) {
+    console.log('item',cartitem);
+  }
   return (
     <div>
       <AppsBar />

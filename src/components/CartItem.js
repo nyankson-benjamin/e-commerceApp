@@ -18,6 +18,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 export default function CartItem({ value }) {
   const [data] = useFetchProducts();
   const navigate = useNavigate();
+  console.log("hello");
   return (
     <IconButton
       aria-label="cart"

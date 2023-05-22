@@ -15,7 +15,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-export default function CartLength() {
+export default function CartLength({ user }) {
   const navigate = useNavigate();
   const [data] = useCart();
   return (
