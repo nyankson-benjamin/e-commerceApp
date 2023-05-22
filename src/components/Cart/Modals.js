@@ -88,7 +88,7 @@ export default function Modals({
             </Box>
             <br />
             <Box>
-              <ButtonGroup fullWidth>
+              <ButtonGroup fullWidth sx={{mt:2}}>
                 <Button
                   startIcon={<AddShoppingCartIcon />}
                   onClick={() => Update(price, value, id)}
