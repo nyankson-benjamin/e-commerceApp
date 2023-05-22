@@ -13,28 +13,19 @@ import { Link } from "react-router-dom";
 import LoginButton from "../Buttons/LoginButton";
 import useLogin from "../../Hooks/useLogin";
 import Alerts from "../Alert/Alerts";
-function SignIn({
-  handleCloseAlert,
-  email,
-  handleEmail,
-  password,
-  handlePassword,
-  alert,
-  disable,
-  handleSubmit,
-}) {
-  // const [
-  //   handleSubmit,
-  //   email,
-  //   password,
-  //   disable,
-  //   handleEmail,
-  //   handlePassword,
-  //   handleLogOut,
-  //   alert,
-  //   handleCloseAlert,
-  //   user,
-  // ] = useLogin();
+function SignIn() {
+  const [
+    handleSubmit,
+    email,
+    password,
+    disable,
+    handleEmail,
+    handlePassword,
+    checkCredential,
+    handleLogOut,
+    alerts,
+    handleCloseAlert,
+  ] = useLogin();
   // const alerts = {
   //   open: true,
   //   message: "hello",
@@ -42,7 +33,7 @@ function SignIn({
   // };
   return (
     <Box>
-      <Alerts alert={alert} handleCloseAlert={handleCloseAlert} />
+      <Alerts alert={alerts} handleCloseAlert={handleCloseAlert} />
       <FormControl sx={{ width: "70%", mt: "100px" }}>
         <h3>Log in to your account</h3>
         <FormLabel
@@ -94,7 +85,6 @@ function SignIn({
             inputProps: {},
           }}
         />
-        <br />
         <br />
         <LoginButton disable={disable} handleSubmit={handleSubmit} />
 

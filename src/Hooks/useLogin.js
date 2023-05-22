@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import useUsers from "./useUsers";
 import { useNavigate } from "react-router-dom";
-import { API } from "../Services/api";
-
 export default function useLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disable, setDisable] = useState(true);
   const navigate = useNavigate();
-
-  const [alert, setAlert] = useState({
+  const [users] = useUsers();
+  const [alerts, setAlerts] = useState({
     open: false,
     message: "",
     severity: "",
@@ -30,58 +29,64 @@ export default function useLogin() {
     setPassword(event.target.value);
   };
 
-  useEffect(() => {
-    if (localStorage.getItem("userDetails")) {
-      navigate("/");
-    }
-  });
+  const user = users?.find((user) => user.email === email);
 
-  const handleSubmit = async () => {
-    const location = localStorage.getItem("userPrevLocation");
-   
+  const handleSubmit = () => {
+    const userIsLoggedin = checkCredential(email, password);
     try {
-      setDisable(true);
-      const response = await API.post("/user/login", { email, password });
-      localStorage.setItem("userDetails", JSON.stringify(response?.data?.data));
-      localStorage.setItem("isLoggedIn", true);
-      setAlert({
-        open: true,
-        message: "Login successfull,",
-        severity: "success",
-      });
-      setDisable(false);
+      if (user && user.email !== email) {
+        setAlerts({
+          open: true,
+          message: "Email not found",
+          severity: "error",
+        });
+      } else if (user && user.isVerified === false) {
+        setAlerts({
+          open: true,
+          message: "Please confirm your email first",
+          severity: "info",
+        });
+        setTimeout(() => {
+          navigate("/confirm");
+        }, 3000);
+      } else if (!userIsLoggedin) {
+        setAlerts({
+          open: true,
+          message: "Invalid credentials supplied",
+          severity: "error",
+        });
+      } else {
+        console.log(user);
+        localStorage.setItem("isLoggedIn", true);
+        localStorage.setItem("id", user.id);
+        setAlerts({
+          open: true,
+          message: "Login success. Redirecting to homepage",
+          severity: "success",
+        });
 
-      if (location) {
         setTimeout(() => {
-          navigate(`${location.slice(21)}`);
-          localStorage.removeItem("userPrevLocation");
-        }, 4000);
-      } else {
-        setTimeout(() => {
-          navigate("/");
-        }, 4000);
+          navigate("/products");
+        }, 2000);
       }
-    } catch (error) {
-      if (error.message === "Network Error") {
-        setAlert({
-          open: true,
-          message: "There was a problem loging in",
-          severity: "error",
-        });
-      } else {
-        setAlert({
-          open: true,
-          message: error.response.data,
-          severity: "error",
-        });
-      }
+    } catch (error) {}
+  };
+
+  const checkCredential = (email, password) => {
+    if (user) {
+      return email === user.email && password === user.password;
+    } else {
+      setAlerts({
+        open: true,
+        message: "Login success. Redirecting to homepage",
+        severity: "error",
+      });
     }
   };
 
   const handleLogOut = () => {
-    alert("hello");
     localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("userDetails");
+    localStorage.removeItem("id");
     navigate("/login");
   };
 
@@ -90,7 +95,7 @@ export default function useLogin() {
       return;
     }
     // setOpenAlert(false);
-    setAlert({
+    setAlerts({
       open: false,
       message: "",
       severity: "",
@@ -103,8 +108,10 @@ export default function useLogin() {
     disable,
     handleEmail,
     handlePassword,
+    checkCredential,
     handleLogOut,
-    alert,
+    alerts,
     handleCloseAlert,
+    user,
   ];
 }

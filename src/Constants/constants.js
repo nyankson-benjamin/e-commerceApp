@@ -17,7 +17,7 @@ export const page = [
   },
   {
     id: 3,
-    name: "About",
+    name: "About us",
     route: "about",
   },
   // {

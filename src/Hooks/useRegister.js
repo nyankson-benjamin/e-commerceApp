@@ -28,11 +28,6 @@ export default function useRegister() {
     setCountry(event.target.value);
   };
 
-  useEffect(() => {
-    if (localStorage.getItem("userDetails")) {
-      navigate("/");
-    }
-  });
   const data = {
     fname,
     lname,
@@ -57,7 +52,7 @@ export default function useRegister() {
     } else {
       try {
         setDisable(true);
-        const response = await API.post("/user/register", { ...data });
+        const response = await API.post("/Users", { ...data });
         setDisable(false);
         console.log(response);
         // alert(`Your verication code is: ${otp}`);
@@ -70,24 +65,7 @@ export default function useRegister() {
         setTimeout(() => {
           navigate("/confirm");
         }, 5000);
-      } catch (error) {
-        // console.log(error.message === "Request failed with status code 409");
-        if (error?.message === "Request failed with status code 409") {
-          setAlert({
-            open: true,
-            message: "Email already exists",
-            severity: "error",
-          });
-        } else {
-          setAlert({
-            open: true,
-            message: error?.message,
-            severity: "error",
-          });
-        }
-
-        setDisable(false);
-      }
+      } catch (error) {}
     }
   };
 

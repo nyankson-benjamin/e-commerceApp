@@ -50,7 +50,7 @@ export default function BottomBar() {
         <Link>Catalog</Link>
         <Link>Blog</Link>
         <Link>Pages</Link>
-        <Link>About</Link>
+        <Link>About us</Link>
       </div>
     </div>
   );

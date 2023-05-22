@@ -47,65 +47,29 @@ export default function ResetPassword() {
     }
   }, [password, confirmPass]);
 
-  useEffect(() => {
-    if (localStorage.getItem("userDetails")) {
-      navigate("/");
-    }
-  });
   const handleForgot = async () => {
-    // if (user && user.email === email) {
-    //   const data = { password: password, confirmPass: confirmPass };
-    //   await API.patch("Users/" + user.id, { ...data });
-    //   setAlerts({
-    //     open: true,
-    //     message: "Password reset successfully",
-    //     severity: "success",
-    //   });
-    //   localStorage.removeItem("email");
-
-    //   setTimeout(() => {
-    //     navigate("/login");
-    //   }, 3000);
-    // } else {
-    //   setAlerts({
-    //     open: true,
-    //     message: "Email not found. Request for a change of password first",
-    //     severity: "error",
-    //   });
-    //   setTimeout(() => {
-    //     navigate("/forgot");
-    //   }, 3000);
-    // }
-
-    try {
-      setDisable(true);
-      await API.post("/resetPassword", { password, confirmPass });
+    if (user && user.email === email) {
+      const data = { password: password, confirmPass: confirmPass };
+      await API.patch("Users/" + user.id, { ...data });
       setAlerts({
         open: true,
         message: "Password reset successfully",
         severity: "success",
       });
-      setDisable(false);
+      localStorage.removeItem("email");
 
       setTimeout(() => {
         navigate("/login");
       }, 3000);
-    } catch (error) {
-      if (error?.message === "Network Error") {
-        setAlerts({
-          open: true,
-          message: "There was a problem reseting your password",
-          severity: "error",
-        });
-        setDisable(false);
-      } else {
-        setAlerts({
-          open: true,
-          message: error?.response?.data,
-          severity: "error",
-        });
-        setDisable(false);
-      }
+    } else {
+      setAlerts({
+        open: true,
+        message: "Email not found. Request for a change of password first",
+        severity: "error",
+      });
+      setTimeout(() => {
+        navigate("/forgot");
+      }, 3000);
     }
   };
 
@@ -158,7 +122,6 @@ export default function ResetPassword() {
         placeholder="Confirm New Password"
         value={confirmPass}
         onChange={handleConfirmPass}
-        sx={{ mt: 2 }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

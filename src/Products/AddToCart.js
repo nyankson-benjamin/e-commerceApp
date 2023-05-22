@@ -6,7 +6,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { baseURL } from "../Constants/urls";
 import { API } from "../Services/api";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useCart from "../Hooks/useCart";
 import Modals from "../components/Cart/Modals";
 import Alert from "../components/Alert/Alerts";
@@ -50,107 +50,40 @@ export default function AddToCart({ product }) {
       ).toFixed(2) * value,
   };
 
-  const price =
-    (
-      product.price -
-      (product.discountPercentage / 100) * product.price
-    ).toFixed(2) * value;
-
-  const totalPrice =
-    (
-      product.price -
-      (product.discountPercentage / 100) * product.price
-    ).toFixed(2) * value;
-  const location = window.location.href;
   const products = data?.find((product) => product.item === cartItem.item);
   const handleAddToCart = async (e) => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    console.log(isLoggedIn);
-    const user = JSON.parse(localStorage.getItem("userDetails"));
-    console.log(user);
+    if (products && products.item === cartItem.item) {
+      // alert("product already exist");
 
-    try {
-      if (!isLoggedIn) {
-        localStorage.setItem("userPrevLocation", location);
+      setAlert({
+        open: true,
+        message: `${cartItem.item}  already exits in your cart`,
+        severity: "error",
+      });
+
+      setOpen(true);
+    } else {
+      try {
+        const response = await API.post("Cart/", { ...cartItem });
         setAlert({
           open: true,
-          message: `Please login first`,
-          severity: "info",
+          message: `${cartItem.item}  has been successfully added to your cart`,
+          severity: "success",
         });
+
+        setDisable(true);
         setTimeout(() => {
-          navigate("/login");
-        }, 3000);
-      } else {
-        const response = await API.post("/addtocart", {
-          item: product.title,
-          image: image,
-          quantity: value,
-          email: user.email,
-          unitPrice: price,
-          totalPrice: totalPrice,
-        });
-        if (response.data.message === "update price") {
-          setOpen(true);
-          console.log("update price");
-        } else {
-          setAlert({
-            open: true,
-            message: `${product.title}  has been successfully added to your cart`,
-            severity: "success",
-          });
-        }
-
-        console.log("resp", response);
-      }
-    } catch (error) {
-      console.log(error);
-      if (error.message === "Network Error") {
+          navigate("/cart");
+        }, 6000);
+      } catch (error) {
         setAlert({
           open: true,
-          message: `There was an error adding to cart`,
-          severity: "error",
-        });
-      } else {
-        setAlert({
-          open: true,
-          message: error?.response.data,
+          message: error.message,
           severity: "error",
         });
       }
+      // console.log(cartItem);
     }
-
-    // if (products && products.item === cartItem.item) {
-    //   // alert("product already exist");
-
-    //   setAlert({
-    //     open: true,
-    //     message: `${cartItem.item}  already exits in your cart`,
-    //     severity: "error",
-    //   });
-
-    //   setOpen(true);
-    // } else {
-    //   try {
-    //     const response = await API.post("Cart/", { ...cartItem });
-    //     setAlert({
-    //       open: true,
-    //       message: `${cartItem.item}  has been successfully added to your cart`,
-    //       severity: "success",
-    //     });
-
-    //     setDisable(true);
-    //     setTimeout(() => {
-    //       navigate("/cart");
-    //     }, 6000);
-    //   } catch (error) {
-    //     setAlert({
-    //       open: true,
-    //       message: error.message,
-    //       severity: "error",
-    //     });
-    //   }
-    // console.log(cartItem);
-    // }
   };
 
   const handleClose = () => setOpen(false);
@@ -283,7 +216,6 @@ export default function AddToCart({ product }) {
               variant="contained"
               onClick={() => navigate("/cart")}
               startIcon={<AddShoppingCartIcon />}
-              sx={{ mt: 2 }}
             >
               My cart
             </Button>
@@ -373,7 +305,6 @@ export default function AddToCart({ product }) {
               onClick={handleAddToCart}
               disabled={disable}
               disableElevation
-              sx={{mt:2}}
             >
               Add
             </Button>
@@ -384,7 +315,6 @@ export default function AddToCart({ product }) {
               onClick={() => navigate("/cart")}
               startIcon={<AddShoppingCartIcon />}
               disableElevation
-              sx={{ mt: 2 }}
             >
               My cart
             </Button>

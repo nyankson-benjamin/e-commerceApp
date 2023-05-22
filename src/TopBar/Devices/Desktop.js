@@ -21,48 +21,25 @@ import { page, categories } from "../../Constants/constants";
 import { Link, useNavigate } from "react-router-dom";
 
 import { navLinkStyle } from "../../styles/Styles";
+
 import CartLength from "../../components/Cart/CartLength";
+import useUsers from "../../Hooks/useUsers";
 import Searchitem from "../../components/Searchitem";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LockResetIcon from "@mui/icons-material/LockReset";
-import Alerts from "../../components/Alert/Alerts";
 
 function Desktop({ search, handleChange, handleLogOut, ItemCategory }) {
   const [category, setCategory] = useState(null);
   const [dashBoarditem, setDashBoarditem] = useState(null);
-  const [alert, setAlert] = useState({
-    open: false,
-    message: "",
-    severity: "",
-  });
-  // const [user, setUser] = useState();
   const navigate = useNavigate();
+  const [users] = useUsers();
+
   const isLoggedIn = Boolean(localStorage.getItem("isLoggedIn"));
+  const id = localStorage.getItem("id");
 
-  const user = JSON.parse(localStorage.getItem("userDetails"));
-
-  const logOut = () => {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("userDetails");
-    setAlert({
-      open: true,
-      message: "Logout successfull",
-      severity: "success",
-    });
-    setTimeout(() => {
-      navigate("/login");
-    }, 3000);
-  };
-
-  const handleCloseAlert = (event, reason) => {
-    setAlert({
-      open: false,
-      message: "",
-      severity: "",
-    });
-  };
+  const user = users?.find((user) => user.id === Number(id));
   return (
     <Box
       sx={{
@@ -71,7 +48,6 @@ function Desktop({ search, handleChange, handleLogOut, ItemCategory }) {
         textTransform: "Capitalize",
       }}
     >
-      <Alerts alert={alert} handleCloseAlert={handleCloseAlert} />
       <Typography
         variant="h6"
         component="div"
@@ -84,8 +60,7 @@ function Desktop({ search, handleChange, handleLogOut, ItemCategory }) {
           {/* MILES */}
         </Typography>
         <Searchitem search={search} handleChange={handleChange} />
-        {isLoggedIn && <CartLength user={user} />}
-
+        <CartLength />
         {page.map((page) => (
           <Button
             sx={navLinkStyle}
@@ -149,8 +124,8 @@ function Desktop({ search, handleChange, handleLogOut, ItemCategory }) {
                 </MenuItem>
 
                 <MenuItem>
-                  <Button startIcon={<LogoutIcon />} onClick={logOut}>
-                    logouts
+                  <Button startIcon={<LogoutIcon />} onClick={handleLogOut}>
+                    logout
                   </Button>
                 </MenuItem>
               </Menu>
