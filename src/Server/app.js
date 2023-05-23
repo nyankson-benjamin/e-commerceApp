@@ -7,6 +7,20 @@ require("dotenv").config();
 const app = express();
 const User = require("./Modules/user");
 const Cart = require("./Modules/cart");
+
+// Email
+const createTransport = require("./Email/Transporter");
+const mailOptions = require("./Email/MailOptions");
+
+const transport = createTransport(
+  // "nyanksonbenjamin5@gmail.com",
+  // "quxieveqhabevzzf"
+  "mshopping.gh@gmail.com",
+  "jfcadxmtcqteribf"
+);
+// jfcadxmtcqteribf
+//mshopping.gh@gmail.com
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -62,6 +76,13 @@ app.post("/user/register", async (req, res) => {
       isAdmin,
     });
 
+    const emailOptions = mailOptions(
+      "nyanksonbenjamin5@gmail.com",
+      email,
+      "Email Verification",
+      `<p>Your verification code is is ${otp}</p>`
+    );
+
     const checkuser = await db.collection("users").findOne({ email: email });
 
     if (checkuser === null) {
@@ -69,6 +90,14 @@ app.post("/user/register", async (req, res) => {
     } else {
       res.status(409).send("Email already exists");
     }
+
+    transport.sendMail(emailOptions, (err, info) => {
+      if (err) {
+        console.log("Error:", err);
+      } else {
+        console.log("Email sent:", info.response);
+      }
+    });
     res.status(201).json({ message: "Data stored successfully" });
   } catch (error) {
     console.error("Error:", error);
@@ -96,7 +125,12 @@ app.post("/confirm", async (req, res) => {
   try {
     const userOtp = await db.collection("users").findOne({ otp: code });
     // console.log(code);
-
+    const emailOptions = mailOptions(
+      "nyanksonbenjamin5@gmail.com",
+      userOtp?.email,
+      "Email Verification",
+      `<p>Your email has been successfully confirmed</p>`
+    );
     if (userOtp === null) {
       res.status(500).send("Internal Server Error");
     } else {
@@ -106,6 +140,13 @@ app.post("/confirm", async (req, res) => {
           { _id: userOtp._id },
           { $set: { otp: "", isVerified: true } }
         );
+      transport.sendMail(emailOptions, (err, info) => {
+        if (err) {
+          console.log("Error:", err);
+        } else {
+          console.log("Email sent:", info.response);
+        }
+      });
       res.status(201).json({ mesage: "Otp confirmed successfully" });
     }
   } catch (error) {
