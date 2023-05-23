@@ -63,7 +63,7 @@ export default function useRegister() {
         // alert(`Your verication code is: ${otp}`);
         setAlert({
           open: true,
-          message: `Your verication code is: ${otp}`,
+          message: `A verification code has been sent to your email`,
           severity: "success",
         });
         localStorage.setItem("code", otp);
