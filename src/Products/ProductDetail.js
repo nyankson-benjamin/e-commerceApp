@@ -10,27 +10,32 @@ function ProductDetail({ product }) {
 
   const navigate = useNavigate();
   return (
-    <Box>
-      {screenWidth < 600 ? (
+    <Box sx={{ mb: 20 }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: screenWidth > 600 ? "row" : "column",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+        }}
+      >
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            // alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
-
-            height: "100vh",
+            width: screenWidth > 600 ? "450px" : "350px",
+            border: "2px solid #ffc801",
+            borderRadius: "5px 5px 0px 0px",
+            height: "300px",
           }}
         >
-          <Box sx={{ width: "450px", border: "2px soli black" }}>
-            <img
-              src={product.thumbnail}
-              alt=""
-              style={{ width: "300px", height: "200px", margin: "5px" }}
-            />
-            <br />
+          <img
+            src={product.thumbnail}
+            alt=""
+            style={{ width: "300px", height: "210px", margin: "5px" }}
+          />
+          <br />
 
+          <Box sx={{ bgcolor: "#ffc801", mt: 1.5 }}>
             {product.images?.map((image) => (
               <img
                 src={image}
@@ -39,137 +44,76 @@ function ProductDetail({ product }) {
               />
             ))}
           </Box>
-
-          <Box sx={{ width: "300px", textAlign: "left", margin: "auto" }}>
-            <Box
-              sx={{
-                background: "#003F62",
-                color: "white",
-                padding: "10px",
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography variant="h5">
-                {product.title.substring(0, 10) + "..."}
-              </Typography>
-              <Typography
-                variant="h5"
-                sx={{ color: "yellow", fontWeight: "bold" }}
-              >
-                - {product.discountPercentage} %
-              </Typography>
-            </Box>
-
-            <Typography variant="h5">{product.description}</Typography>
-            <Typography variant="h5">
-              <s>${product.price}</s>
-            </Typography>
-            <Typography variant="h5">
-              {" "}
-              $
-              {(
-                product.price -
-                (product.discountPercentage / 100) * product.price
-              ).toFixed(2)}
-            </Typography>
-            <Stack sx={{ justifyContent: "center", alignItems: "left" }}>
-              <Rating
-                name="half-rating"
-                defaultValue={product.rating}
-                precision={0.5}
-              />
-            </Stack>
-            <br />
-            <Button
-              variant="contained"
-              onClick={() => navigate(`/BuyProduct/${product.title}`)}
-              startIcon={<AddShoppingCartIcon />}
-              fullWidth
-              sx={{ background: "#003F62" }}
-            >
-              ADD TO CART
-            </Button>
-          </Box>
         </Box>
-      ) : (
+
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "row",
-            // alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
+            width: screenWidth > 600 ? "450px" : "350px",
+            textAlign: "left",
+            // margin: "auto",
+            ml: screenWidth > 600 ? 2 : null,
+            mt: screenWidth > 600 ? null : 2,
+            height: "300px",
           }}
         >
-          <Box sx={{ width: "450px", border: "2px soli black" }}>
-            <img
-              src={product.thumbnail}
-              alt=""
-              style={{ width: "300px", height: "200px", margin: "5px" }}
+          <Box
+            sx={{
+              background: "#ffc801",
+              color: "white",
+              padding: "10px",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography variant="h5">
+              {product.title.substring(0, 10) + "..."}
+            </Typography>
+            <Typography
+              variant="h5"
+              sx={{ color: "#003F62", fontWeight: "bold" }}
+            >
+              - {product.discountPercentage} %
+            </Typography>
+          </Box>
+
+          <Typography variant="h5">{product.description}</Typography>
+          <Typography variant="h5">
+            <s>${product.price}</s>
+          </Typography>
+          <Typography variant="h5">
+            {" "}
+            $
+            {(
+              product.price -
+              (product.discountPercentage / 100) * product.price
+            ).toFixed(2)}
+          </Typography>
+          <Stack sx={{ justifyContent: "center", alignItems: "left" }}>
+            <Rating
+              name="half-rating"
+              defaultValue={product.rating}
+              precision={0.5}
             />
-            <br />
-
-            {product.images?.map((image) => (
-              <img
-                src={image}
-                key={image}
-                style={{ width: "50px", height: "50px", margin: "5px" }}
-              />
-            ))}
-          </Box>
-
-          <Box sx={{ width: "500px", textAlign: "left" }}>
-            <Box
-              sx={{
-                background: "#003F62",
-                color: "white",
-                padding: "10px",
-
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography variant="h5">{product.title}</Typography>
-              <Typography
-                variant="h5"
-                sx={{ color: "yellow", fontWeight: "bold" }}
-              >
-                - {product.discountPercentage} %
-              </Typography>
-            </Box>
-            <Typography variant="h5">{product.description}</Typography>
-            <Typography variant="h5">
-              <s>${product.price}</s>
-            </Typography>
-            <Typography variant="h5">
-              {" "}
-              $
-              {(
-                product.price -
-                (product.discountPercentage / 100) * product.price
-              ).toFixed(2)}
-            </Typography>
-            <Stack sx={{ justifyContent: "center", alignItems: "left" }}>
-              <Rating
-                name="half-rating"
-                defaultValue={product.rating}
-                precision={0.5}
-              />
-            </Stack>
-            <br />
-            <Button
-              variant="contained"
-              onClick={() => navigate(`/BuyProduct/${product.title}`)}
-              startIcon={<AddShoppingCartIcon />}
-              fullWidth
-              sx={{ background: "#003F62" }}
-            >
-              ADD TO CART
-            </Button>
-          </Box>
+          </Stack>
+          <br />
+          <Button
+            variant="contained"
+            onClick={() => navigate(`/BuyProduct/${product.title}`)}
+            startIcon={<AddShoppingCartIcon />}
+            disableElevation
+            fullWidth
+            sx={{
+              background: "#ffc801",
+              fontWeight: "bold",
+              height: "50px",
+              mt: 2.9,
+              "&:hover": { background: "#ffc801" },
+            }}
+          >
+            ADD TO CART
+          </Button>
         </Box>
-      )}
+      </Box>
     </Box>
   );
 }

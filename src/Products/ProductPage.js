@@ -36,73 +36,37 @@ function ProductPage() {
     }
   }, [, data, product]);
 
+  let original = related?.filter((item) => item.title !== product.title);
+  console.log("original", original);
   return (
-    <div style={{}}>
+    <div >
       <AppsBar />
       {product && (
-        <Box
-          sx={{
-            margin: "50px",
-            // width: "50%",
-            overFlow: "scroll",
-            // height: "200px",
-            mt: "20px",
-          }}
-        >
+        <Box sx={{mb:20}}>
           <Box
             sx={{
               // height: "200px",
               display: "flex",
               justifyContent: "center",
               // flexDirection: "column",
+              mt: 5,
+  
             }}
           >
             <ProductDetail product={product} />
           </Box>
 
-          <Box>
-            <h3>Related Products</h3>
-
-            {screenWidth > 600 ? (
-              <Swiper
-                modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-                spaceBetween={20}
-                slidesPerView={4}
-                // onSlideChange={() => console.log("slide change")}
-                // onSwiper={(swiper) => console.log(swiper)}
-                navigation
-                pagination={{ clickable: true }}
-                autoplay={autoplay}
-              >
-                {related?.map((related) => (
-                  <SwiperSlide key={related.id}>
-                    <RelatedProducts related={related} loading={isLoading} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            ) : (
-              <Swiper
-                modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-                spaceBetween={20}
-                slidesPerView={1}
-                // onSlideChange={() => console.log("slide change")}
-                // onSwiper={(swiper) => console.log(swiper)}
-                navigation
-                pagination={{ clickable: true }}
-                autoplay={autoplay}
-              >
-                {related?.map((related) => (
-                  <SwiperSlide key={related.id}>
-                    <RelatedProducts related={related} loading={isLoading} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+          <Box >
+            {original?.length>1 && (
+              <>
+                <h3>Related Products</h3>
+                <RelatedProducts related={original} loading={isLoading} />
+              </>
             )}
           </Box>
         </Box>
       )}
-      {/* <h3>Other Products</h3>
-      <ProductSlider data={data} /> */}
+      
       <Footer />
     </div>
   );

@@ -29,11 +29,16 @@ import PersonIcon from "@mui/icons-material/Person";
 import { Search } from "@mui/icons-material";
 
 import LogoutIcon from "@mui/icons-material/Logout";
+import Alerts from "../../components/Alert/Alerts";
 function Mobile({ handleLogOut }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [category, setCategory] = useState(null);
   const navigate = useNavigate();
-  const [users] = useUsers();
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -43,42 +48,95 @@ function Mobile({ handleLogOut }) {
   };
 
   const isLoggedIn = Boolean(localStorage.getItem("isLoggedIn"));
-  const id = localStorage.getItem("id");
-  const user = users?.find((user) => user.id === Number(id));
+  // if (localStorage.getItem("userDetails")) {
+  //   setUser(JSON.parse(localStorage.getItem("userDetails")));
+  // }
+  const user = JSON.parse(localStorage.getItem("userDetails"));
 
+  const logOut = () => {
+    localStorage.removeItem('isLoggedIn')
+    localStorage.removeItem("userDetails");
+    setAlert({
+      open: true,
+      message: "Logout successfull",
+      severity: "success",
+    });
+    setTimeout(() => {
+      navigate("/login");
+    }, 3000);
+  };
+
+  const handleCloseAlert = (event, reason) => {
+    setAlert({
+      open: false,
+      message: "",
+      severity: "",
+    });
+  };
   return (
-    <Stack
-      direction="row"
-      spacing={3} // sx={{
-    >
-      <Box sx={{ flexGrow: 0, alignItems: "center", display: "flex" }}>
-        <IconButton color="inherit">
-          <Search />
+    <>
+      <Alerts alert={alert} handleCloseAlert={handleCloseAlert} />
+      <Stack
+        direction="row"
+        spacing={3} // sx={{
+      >
+        <Box sx={{ flexGrow: 0, alignItems: "center", display: "flex" }}>
+          <IconButton color="inherit">
+            <Search />
+          </IconButton>
+
+          <CartLength />
+          <Tooltip title="Open settings">
+            <Button
+              onClick={(event) => setCategory(event.currentTarget)}
+              sx={{
+                p: 0,
+                ml: 3,
+                textTransform: "Capitalize",
+                fontWeight: "bold",
+                fontSize: "15px",
+              }}
+              color="inherit"
+              endIcon={<KeyboardArrowDownIcon />}
+            >
+              Categories
+            </Button>
+          </Tooltip>
+          <Menu
+            sx={{ mt: "45px" }}
+            id="menu-appbar"
+            anchorEl={category}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(category)}
+            onClose={() => setCategory(null)}
+          >
+            {categories.map((category) => (
+              <MenuItem
+                key={category}
+                onClick={() => navigate(`/categories/${category}`)}
+              >
+                <Typography textAlign="center">{category}</Typography>
+              </MenuItem>
+            ))}
+          </Menu>
+        </Box>
+        <IconButton color="inherit" onClick={handleOpenNavMenu} sx={{ p: 0 }}>
+          <MenuIcon />
         </IconButton>
 
-        <CartLength />
-        <Tooltip title="Open settings">
-          <Button
-            onClick={(event) => setCategory(event.currentTarget)}
-            sx={{
-              p: 0,
-              ml: 3,
-              textTransform: "Capitalize",
-              fontWeight: "bold",
-              fontSize: "15px",
-            }}
-            color="inherit"
-            endIcon={<KeyboardArrowDownIcon />}
-          >
-            Categories
-          </Button>
-        </Tooltip>
         <Menu
-          sx={{ mt: "45px" }}
           id="menu-appbar"
-          anchorEl={category}
+          anchorEl={anchorElNav}
           anchorOrigin={{
-            vertical: "top",
+            vertical: "bottom",
             horizontal: "right",
           }}
           keepMounted
@@ -86,65 +144,37 @@ function Mobile({ handleLogOut }) {
             vertical: "top",
             horizontal: "right",
           }}
-          open={Boolean(category)}
-          onClose={() => setCategory(null)}
+          open={Boolean(anchorElNav)}
+          onClose={handleCloseNavMenu}
+          sx={{
+            display: { xs: "block", md: "none" },
+          }}
         >
-          {categories.map((category) => (
-            <MenuItem
-              key={category}
-              onClick={() => navigate(`/categories/${category}`)}
-            >
-              <Typography textAlign="center">{category}</Typography>
+          {page.map((page) => (
+            <MenuItem key={page.id} onClick={handleCloseNavMenu}>
+              <Typography
+                textAlign="center"
+                onClick={() => navigate(`/${page.route}`)}
+              >
+                {page.name}
+              </Typography>
             </MenuItem>
           ))}
-        </Menu>
-      </Box>
-      <IconButton color="inherit" onClick={handleOpenNavMenu} sx={{ p: 0 }}>
-        <MenuIcon />
-      </IconButton>
-
-      <Menu
-        id="menu-appbar"
-        anchorEl={anchorElNav}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        open={Boolean(anchorElNav)}
-        onClose={handleCloseNavMenu}
-        sx={{
-          display: { xs: "block", md: "none" },
-        }}
-      >
-        {page.map((page) => (
-          <MenuItem key={page.id} onClick={handleCloseNavMenu}>
-            <Typography
-              textAlign="center"
-              onClick={() => navigate(`/${page.route}`)}
-            >
-              {page.name}
-            </Typography>
-          </MenuItem>
-        ))}
-        {isLoggedIn && user ? (
-          <Box>
+          {isLoggedIn && user ? (
+            <Box>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <LogoutIcon onClick={logOut} />
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>{user.fname}</MenuItem>
+            </Box>
+          ) : (
             <MenuItem onClick={handleCloseNavMenu}>
-              <LogoutIcon onClick={handleLogOut} />
+              <PersonIcon onClick={() => navigate("/login")} />
             </MenuItem>
-            <MenuItem onClick={handleCloseNavMenu}>{user.fname}</MenuItem>
-          </Box>
-        ) : (
-          <MenuItem onClick={handleCloseNavMenu}>
-            <PersonIcon onClick={() => navigate("/login")} />
-          </MenuItem>
-        )}
-      </Menu>
-    </Stack>
+          )}
+        </Menu>
+      </Stack>
+    </>
   );
 }
 

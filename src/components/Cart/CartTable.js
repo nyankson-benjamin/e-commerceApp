@@ -16,6 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useState, useEffect } from "react";
 import { API } from "../../Services/api";
 import useScreenWidth from "../../Hooks/useScreenWidth";
+
 export default function CartTable({ data, cart, handleDelete }) {
   const [filt, setFilter] = useState("");
   const [screenWidth] = useScreenWidth();
@@ -83,7 +84,9 @@ export default function CartTable({ data, cart, handleDelete }) {
                         >
                           BUY
                         </Button>
-                        <IconButton onClick={() => handleDelete(cart._id, cart.item)}>
+                        <IconButton
+                          onClick={() => handleDelete(cart._id, cart.item)}
+                        >
                           <DeleteIcon />
                         </IconButton>
                       </ButtonGroup>

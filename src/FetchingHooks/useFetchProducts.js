@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { DUMMy_API } from "../Services/api";
+import { useEffect, useState } from "react";
+import { API } from "../Services/api";
+
 export default function useFetchProducts() {
   const [data, setData] = useState();
   const [isLoading, setisLoading] = useState(false);
@@ -7,9 +8,10 @@ export default function useFetchProducts() {
     const fetch = async () => {
       try {
         setisLoading(true);
-        const response = await DUMMy_API.get("products/");
+        const response = await API.get("/products/");
+        // console.log('response',response)
         setisLoading(false);
-        setData(response?.data?.products);
+        setData(response?.data);
       } catch (error) {
         console.log(error);
       }

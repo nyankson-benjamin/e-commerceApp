@@ -223,9 +223,7 @@ app.delete("/delete/cartItem", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const itemIndex = user.cart.filter(
-      (cartItem) => cartItem._id === itemId
-    );
+    const itemIndex = user.cart.filter((cartItem) => cartItem._id === itemId);
 
     if (itemIndex === -1) {
       return res.status(404).json({ error: "Cart item not found" });
@@ -246,8 +244,5 @@ app.delete("/delete/cartItem", async (req, res) => {
   }
 });
 
-
-app.post('item/update', (req, res)=>{
-
-})
+app.post("item/update", (req, res) => {});
 module.exports = app;

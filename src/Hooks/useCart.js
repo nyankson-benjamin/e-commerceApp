@@ -11,29 +11,34 @@ export default function useCart() {
     severity: "",
   });
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("userDetails"));
+
   useEffect(() => {
     const fetch = async () => {
       try {
         setLoading(true);
-        const response = await API.get("/Cart");
+        // const response = await API.get("/Cart");
+        const response = await API.get("/cart/?id=" + user._id);
         setLoading(false);
-        setData(response?.data);
+        setData(response?.data.cart);
       } catch (error) {}
     };
     fetch();
   }, []);
 
-  const handleDelete = async (id) => {
-    await API.delete("/Cart/" + id);
+  const handleDelete = async (id, item) => {
+    try {
+      await API.delete(`/delete/cartItem/?userId=${user._id}&itemId=${id}`);
 
-    const newCart = data?.filter((cart) => cart.id !== id);
-    setData(newCart);
+      const newCart = data?.filter((cart) => cart._id !== id);
+      setData(newCart);
 
-    setAlerts({
-      open: true,
-      message: "Item deleted successfully",
-      severity: "info",
-    });
+      setAlerts({
+        open: true,
+        message: item + " has been deleted successfully",
+        severity: "info",
+      });
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -84,7 +89,7 @@ export default function useCart() {
       } catch (error) {}
 
       await API.delete("/Cart/" + id);
-      const newCart = data?.filter((cart) => cart.id !== id);
+      const newCart = data?.filter((cart) => cart._id !== id);
       setData(newCart);
     } else {
       try {
