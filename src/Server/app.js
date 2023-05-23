@@ -129,7 +129,7 @@ app.post("/confirm", async (req, res) => {
       "nyanksonbenjamin5@gmail.com",
       userOtp?.email,
       "Email Verification",
-      `<p>Your email has been successfully confirmed</p>`
+      `<p>Your email has been confirmed successfully </p>`
     );
     if (userOtp === null) {
       res.status(500).send("Internal Server Error");
