@@ -80,7 +80,7 @@ app.post("/user/register", async (req, res) => {
       "nyanksonbenjamin5@gmail.com",
       email,
       "Email Verification",
-      `<p>Your verification code is is ${otp}</p>`
+      `<p>Your verification code is ${otp}</p>`
     );
 
     const checkuser = await db.collection("users").findOne({ email: email });
