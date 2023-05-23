@@ -62,9 +62,8 @@ export default function AddToCart({ product }) {
   const products = data?.find((product) => product.item === cartItem.item);
   const handleAddToCart = async (e) => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
-    console.log(isLoggedIn);
+
     const user = JSON.parse(localStorage.getItem("userDetails"));
-    console.log(user);
 
     try {
       if (!isLoggedIn) {
@@ -88,19 +87,19 @@ export default function AddToCart({ product }) {
         });
         if (response.data.message === "update price") {
           setOpen(true);
-          console.log("update price");
         } else {
           setAlert({
             open: true,
             message: `${product.title}  has been successfully added to your cart`,
             severity: "success",
           });
-        }
 
-        console.log("resp", response);
+          setTimeout(() => {
+            navigate("/cart");
+          }, 3000);
+        }
       }
     } catch (error) {
-      console.log(error);
       if (error.message === "Network Error") {
         setAlert({
           open: true,
@@ -115,39 +114,6 @@ export default function AddToCart({ product }) {
         });
       }
     }
-
-    // if (products && products.item === cartItem.item) {
-    //   // alert("product already exist");
-
-    //   setAlert({
-    //     open: true,
-    //     message: `${cartItem.item}  already exits in your cart`,
-    //     severity: "error",
-    //   });
-
-    //   setOpen(true);
-    // } else {
-    //   try {
-    //     const response = await API.post("Cart/", { ...cartItem });
-    //     setAlert({
-    //       open: true,
-    //       message: `${cartItem.item}  has been successfully added to your cart`,
-    //       severity: "success",
-    //     });
-
-    //     setDisable(true);
-    //     setTimeout(() => {
-    //       navigate("/cart");
-    //     }, 6000);
-    //   } catch (error) {
-    //     setAlert({
-    //       open: true,
-    //       message: error.message,
-    //       severity: "error",
-    //     });
-    //   }
-    // console.log(cartItem);
-    // }
   };
 
   const handleClose = () => setOpen(false);
@@ -271,7 +237,7 @@ export default function AddToCart({ product }) {
               variant="contained"
               onClick={handleAddToCart}
               disabled={disable}
-              sx={{bgcolor:'#ffc801', "&:hover":{bgcolor:'#ffc801'}}}
+              sx={{ bgcolor: "#ffc801", "&:hover": { bgcolor: "#ffc801" } }}
             >
               Add
             </Button>
@@ -375,7 +341,11 @@ export default function AddToCart({ product }) {
               onClick={handleAddToCart}
               disabled={disable}
               disableElevation
-              sx={{ mt: 2, bgcolor:'#ffc801', "&:hover":{bgcolor:'#ffc801'} }}
+              sx={{
+                mt: 2,
+                bgcolor: "#ffc801",
+                "&:hover": { bgcolor: "#ffc801" },
+              }}
             >
               Add
             </Button>
