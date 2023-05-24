@@ -11,15 +11,7 @@ const Cart = require("./Modules/cart");
 // Email
 const createTransport = require("./Email/Transporter");
 const mailOptions = require("./Email/MailOptions");
-
-const transport = createTransport(
-  // "nyanksonbenjamin5@gmail.com",
-  // "quxieveqhabevzzf"
-  "mshopping.gh@gmail.com",
-  "jfcadxmtcqteribf"
-);
-// jfcadxmtcqteribf
-//mshopping.gh@gmail.com
+const transport = createTransport(process.env.GMAIL, process.env.GMAIL_PASS);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -77,7 +69,7 @@ app.post("/user/register", async (req, res) => {
     });
 
     const emailOptions = mailOptions(
-      "nyanksonbenjamin5@gmail.com",
+      process.env.GMAIL,
       email,
       "Email Verification",
       `<p>Your verification code is ${otp}</p>`
@@ -126,7 +118,7 @@ app.post("/confirm", async (req, res) => {
     const userOtp = await db.collection("users").findOne({ otp: code });
     // console.log(code);
     const emailOptions = mailOptions(
-      "nyanksonbenjamin5@gmail.com",
+      process.env.GMAIL,
       userOtp?.email,
       "Email Verification",
       `<p>Your email has been confirmed successfully </p>`
