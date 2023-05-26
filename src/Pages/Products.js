@@ -10,8 +10,10 @@ import ProductSlider from "../components/Slider/ProductSlider";
 import Footer from "../components/Footer";
 import Paginate from "../components/Paginate";
 import ProductSkeleton from "../components/ProductSkeleton";
+import NetworkError from "../components/ErrorPages/NetworkError";
+
 export default function Products() {
-  const [data, isLoading] = useFetchProducts();
+  const [data, isLoading, error] = useFetchProducts();
   const [screenWidth] = useScreenWidth();
   const [currentPage, setCurrentPage] = useState(1);
   const [filt, setFilter] = useState("");
@@ -48,6 +50,8 @@ export default function Products() {
       );
     }
   }, [data, startIndex, endIndex]);
+
+  console.log("error", error);
   return (
     <div style={{ overflow: "scroll", height: "100%" }}>
       <AppsBar search={filt} handleChange={handleChange} />
@@ -98,7 +102,7 @@ export default function Products() {
               <br />
             </div>
           ) : (
-            <p>Nothing was found</p>
+            <>{error && <NetworkError message={error} />}</>
           )}
         </div>
       )}
