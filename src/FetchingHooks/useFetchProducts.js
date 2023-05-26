@@ -4,6 +4,7 @@ import { API } from "../Services/api";
 export default function useFetchProducts() {
   const [data, setData] = useState();
   const [isLoading, setisLoading] = useState(false);
+  const [error, setError] = useState(null);
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -14,9 +15,11 @@ export default function useFetchProducts() {
         setData(response?.data);
       } catch (error) {
         console.log(error);
+        setisLoading(false);
+       setError(error.message)
       }
     };
     fetch();
   }, []);
-  return [data, isLoading];
+  return [data, isLoading, error];
 }
