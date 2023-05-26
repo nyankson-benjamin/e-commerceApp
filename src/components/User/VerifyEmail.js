@@ -4,6 +4,7 @@ import OtpInput from "react-otp-input";
 import VerifyEmailButton from "../Buttons/VerifyEmailButton";
 import BackButton from "../Buttons/BackButton";
 import Alerts from "../Alert/Alerts";
+import { Button } from "@mui/material";
 export default function VerifyEmail() {
   const [
     handleOTPChange,
@@ -53,6 +54,7 @@ export default function VerifyEmail() {
       <br />
       <VerifyEmailButton handleSubmit={handleSubmit} disable={disable} />
       <BackButton />
+      <Button sx={{ textTransform: "capitalize", mt: 2 }}>Resend code</Button>
     </div>
   );
 }
