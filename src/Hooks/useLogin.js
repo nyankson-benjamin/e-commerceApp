@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API } from "../Services/api";
+import { async } from "q";
 
 export default function useLogin() {
   const [email, setEmail] = useState("");
@@ -68,6 +69,16 @@ export default function useLogin() {
           message: "There was a problem loging in",
           severity: "error",
         });
+      } else if (error.response.data === "verify email") {
+        setAlert({
+          open: true,
+          message: "Verify your email before you log in",
+          severity: "error",
+        });
+
+        setTimeout(() => {
+          navigate("/confirm");
+        }, 4000);
       } else {
         setAlert({
           open: true,
@@ -78,12 +89,6 @@ export default function useLogin() {
     }
   };
 
-  const handleLogOut = () => {
-    alert("hello");
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("userDetails");
-    navigate("/login");
-  };
 
   const handleCloseAlert = (event, reason) => {
     if (reason === "clickaway") {
@@ -103,7 +108,6 @@ export default function useLogin() {
     disable,
     handleEmail,
     handlePassword,
-    handleLogOut,
     alert,
     handleCloseAlert,
   ];
