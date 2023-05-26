@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { API } from "../Services/api";
-import useUsers from "./useUsers";
 import { useNavigate } from "react-router-dom";
+
 export default function useRegister() {
   const [fname, setFName] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [password, setPassword] = useState("");
-  const [hashPassword, setHashPassword] = useState("");
   const [confirmPass, setConfirmpass] = useState("");
   const [disable, setDisable] = useState(false);
   const [country, setCountry] = useState("");
@@ -17,9 +16,8 @@ export default function useRegister() {
     message: "",
     severity: "",
   });
-  const [users] = useUsers();
+
   const navigate = useNavigate();
-  const user = users?.find((user) => user.email === email);
   var minm = 1000;
   var maxm = 9999;
   const otp = (Math.floor(Math.random() * (maxm - minm + 1)) + minm).toString();
@@ -48,46 +46,35 @@ export default function useRegister() {
   };
 
   const handleSubmit = async () => {
-    if (user && user.email === email) {
+    try {
+      setDisable(true);
+      await API.post("/user/register", { ...data });
+      setDisable(false);
       setAlert({
         open: true,
-        message: "Email already exist",
-        severity: "error",
+        message: `A verification code has been sent to your email`,
+        severity: "success",
       });
-    } else {
-      try {
-        setDisable(true);
-        const response = await API.post("/user/register", { ...data });
-        setDisable(false);
-        console.log(response);
-        // alert(`Your verication code is: ${otp}`);
+      localStorage.setItem("code", otp);
+      setTimeout(() => {
+        navigate("/confirm");
+      }, 5000);
+    } catch (error) {
+      if (error?.message === "Request failed with status code 409") {
         setAlert({
           open: true,
-          message: `A verification code has been sent to your email`,
-          severity: "success",
+          message: "Email already exists",
+          severity: "error",
         });
-        localStorage.setItem("code", otp);
-        setTimeout(() => {
-          navigate("/confirm");
-        }, 5000);
-      } catch (error) {
-        // console.log(error.message === "Request failed with status code 409");
-        if (error?.message === "Request failed with status code 409") {
-          setAlert({
-            open: true,
-            message: "Email already exists",
-            severity: "error",
-          });
-        } else {
-          setAlert({
-            open: true,
-            message: error?.message,
-            severity: "error",
-          });
-        }
-
-        setDisable(false);
+      } else {
+        setAlert({
+          open: true,
+          message: error?.message,
+          severity: "error",
+        });
       }
+
+      setDisable(false);
     }
   };
 
@@ -145,12 +132,7 @@ export default function useRegister() {
     data.country,
   ]);
 
-  const handleCloseAlert = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    // setOpenAlert(false);
+  const handleCloseAlert = () => {
     setAlert({
       open: false,
       message: "",
