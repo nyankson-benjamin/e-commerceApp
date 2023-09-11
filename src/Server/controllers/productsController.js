@@ -55,7 +55,11 @@ module.exports.getCarts = async (req, res) => {
     const user = await database.usersCollection.findOne({
       _id: new ObjectID(id),
     });
+    if (!user) {
+      return res.status(409).json({ message: "Could not fetch cart" });
+    }
     res.json({ cart: user?.cart });
+    console.log(user);
   } catch (error) {
     console.log(error);
     res.status(409).json({ message: "Could not fetch cart" });
